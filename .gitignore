@@ -3,4 +3,17 @@
 *.psb
 *.tmp
 
+# LaTeX
+*.aux
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.fls
+*.bbl
+*.blg
+*.fdb_latexmk
+*.synctex.gz
+
 *.bak
