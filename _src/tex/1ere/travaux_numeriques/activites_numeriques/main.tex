@@ -9,7 +9,7 @@
 \usepackage[hidelinks]{hyperref}
 \usepackage{graphicx}
 \usepackage{xcolor}
-\definecolor{accent}{HTML}{1F3A5F}
+\definecolor{accent}{HTML}{244470} % not exactly navy blue, but better imo
 \usepackage{geometry}
 \geometry{hmargin=2cm,vmargin=2cm}
 
@@ -53,6 +53,7 @@
 
 \theoremstyle{remark}
 \newtheorem*{remark}{Remarque}
+\newtheorem*{recall}{Rappel}
 
 \begin{document}
 
@@ -62,7 +63,7 @@
   \vspace{0.1cm}
   {\large 1\textsuperscript{ère} année secondaire\par}
   \vspace{0.7cm}
-  {\bfseries Fares Manai\par}
+  {\bfseries \href{https://www.linkedin.com/in/kefrov/}{Fares Manai}\par}
   \vspace{2pt}
   {\small\href{mailto:kefrov630@gmail.com}{kefrov630@gmail.com}\par}
 \end{minipage}
@@ -79,9 +80,10 @@
 \renewcommand{\contentsname}{Sommaire}
 \tableofcontents
 
-\newpage
+\section*{Introduction}
+\addcontentsline{toc}{section}{Introduction}
 
-\section{Introduction}
-
+\section*{Conclusion}
+\addcontentsline{toc}{section}{Conclusion}
 
 \end{document}
