@@ -1,0 +1,87 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{cmbright} % whole document sans-serif, matching sans math
+\usepackage{exscale}
+\usepackage[hidelinks]{hyperref}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\definecolor{accent}{HTML}{1F3A5F}
+\usepackage{geometry}
+\geometry{hmargin=2cm,vmargin=2cm}
+
+\usepackage{titlesec}
+% Style the sections with the navy color
+\titleformat{\section}
+  {\color{accent}\Large\bfseries}
+  {\thesection.}
+  {0.8em}
+  {}
+\titleformat{\subsection}
+  {\color{accent}\large\bfseries}
+  {\thesubsection}
+  {0.7em}
+  {}
+
+\usepackage[many]{tcolorbox}
+% Create a box that is white, but has a 3pt navy line on the left
+\tcbset{
+  navybar/.style={
+    enhanced,
+    colback=white,
+    colframe=accent,
+    boxrule=0pt,
+    leftrule=3pt,
+    arc=0pt,
+    outer arc=0pt,
+    left=8pt, right=8pt, top=6pt, bottom=6pt
+  }
+}
+
+% Theorems and definitions
+\theoremstyle{plain}
+\newtheorem{theorem}{Théorème}[section]
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Définition}
+\newtheorem{example}[theorem]{Exemple}
+
+\newtheorem{exercise}{Exercice}[section]
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remarque}
+
+\begin{document}
+
+\noindent
+\begin{minipage}[c]{0.62\textwidth}
+  {\color{accent}\LARGE\bfseries Activités Numériques\par}
+  \vspace{0.1cm}
+  {\large 1\textsuperscript{ère} année secondaire\par}
+  \vspace{0.7cm}
+  {\bfseries Fares Manai\par}
+  \vspace{2pt}
+  {\small\href{mailto:kefrov630@gmail.com}{kefrov630@gmail.com}\par}
+\end{minipage}
+\hfill
+\begin{minipage}[c]{0.26\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{sqrt2.pdf}
+\end{minipage}
+\par\vspace{0.4cm}
+\noindent{\color{accent}\rule{\linewidth}{0.9pt}}
+\par\vspace{0.5cm}
+
+
+\renewcommand{\contentsname}{Sommaire}
+\tableofcontents
+
+\newpage
+
+\section{Introduction}
+
+
+\end{document}
