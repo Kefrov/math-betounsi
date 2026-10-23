@@ -7,6 +7,7 @@
 \usepackage{cmbright} % whole document sans-serif, matching sans math
 \usepackage{exscale}
 \usepackage[hidelinks]{hyperref}
+\usepackage{cleveref}
 \usepackage{graphicx}
 \usepackage{xcolor}
 \definecolor{accent}{HTML}{244470} % not exactly navy blue, but better imo
@@ -49,7 +50,7 @@
 \newtheorem{definition}[theorem]{Définition}
 \newtheorem{example}[theorem]{Exemple}
 
-\newtheorem{exercise}{Exercice}[section]
+\newtheorem{exercise}{Exercice}
 
 \theoremstyle{remark}
 \newtheorem*{remark}{Remarque}
@@ -80,9 +81,100 @@
 \renewcommand{\contentsname}{Sommaire}
 \tableofcontents
 
+\newpage
 \section*{Introduction}
 \addcontentsline{toc}{section}{Introduction}
 
+\newpage
+% \texorpdfstring{}{} is cool for pdf bookmarks
+\section{Arithmétique dans \texorpdfstring{\(\mathbb{N}\)}{N}}
+
+\subsection{Les Ensembles}
+
+Les mathématiques étudient la logique, les régularités et les relations
+entre des objets mathématiques. Les ensembles permettent de regrouper ces
+objets. À notre niveau, on peut voir un ensemble comme une collection
+d'éléments, à condition que ces éléments soient bien définis.
+
+\begin{example}
+  Soit $E$ l'ensemble des entiers pairs de 1 à 10 :
+  \[
+    E = \{2, 4, 6, 8, 10\}.
+  \]
+  La notation $x \in E$ signifie que $x$ est un élément de $E$.
+  Ici, $x$ peut être n'importe lequel des cinq éléments de $E$.
+  De même, $X \subseteq E$ signifie que $X$ est une partie de $E$,
+  c'est-à-dire que chaque élément de $X$ appartient aussi à $E$.
+  Par exemple, $\{4, 8\} \subseteq E$.
+  \label{eg1.1}
+\end{example}
+
+Voici deux propriétés importantes des ensembles :
+
+\begin{enumerate}
+    \renewcommand{\labelenumi}{(\roman{enumi})}
+    \item L'ordre n'a pas d'importance, e.g., $\{1,2\}=\{2,1\}$.
+    \item Les répétitions ne changent pas l'ensemble, e.g., 
+    $\{1,2,2\}=\{1,2\}$.
+\end{enumerate}
+
+L'intersection de deux ensembles, notée $\cap$, est l'ensemble des
+éléments qui appartiennent aux deux ensembles. La réunion de deux
+ensembles, notée $\cup$, est l'ensemble des éléments qui appartiennent
+à au moins un des deux ensembles. Parfois, on veut garder les éléments
+d'un ensemble qui n'appartiennent pas à un autre. Pour cela, on utilise
+le symbole $\setminus$.
+
+\begin{example}
+  Soit $A = \{1, 2, 3, 4\}$ et $B = \{2, 4, 5, 6\}$.
+  On obtient :
+  \[
+    \begin{aligned}
+        A \cap B &= \{2, 4\} \\
+        A \cup B &= \{1, 2, 3, 4, 5, 6\} \\
+        B \setminus A &= \{5, 6\} \\
+        A \setminus B &= \{1, 3\}.
+    \end{aligned}
+  \]
+\end{example}
+
+On note $\mathbb{N}$ l'ensemble des entiers naturels :
+\[
+  \mathbb{N} = \{0, 1, 2, 3, \dots\}.
+\]
+Les points de suspension $\dots$ indiquent que la suite continue de la
+même façon : chaque nombre est égal au précédent plus un.
+
+La notation de l'exemple suivant sert à décrire des ensembles dont les
+éléments vérifient des conditions précises.
+
+\begin{example}
+  Soit $E$ le même ensemble que dans \cref{eg1.1}. On peut aussi écrire
+  \[
+    E = \{x \in \mathbb{N} \mid x \text{ est pair et } 1 \le x \le 10\}.
+  \]
+  La partie avant le symbole $\mid$ donne la variable et l'ensemble
+  auquel elle appartient. La partie après $\mid$ donne les conditions
+  que la variable doit vérifier. Considérons maintenant l'ensemble
+  suivant :
+  \[
+    F = \{x \in E \mid x \text{ est impair}\}.
+  \]
+  Cet ensemble n'a aucun élément, car aucun entier ne peut être à la
+  fois pair et impair. Donc $F = \varnothing$, où $\varnothing$ désigne
+  l'ensemble vide. On peut aussi écrire l'ensemble vide $\{\}$.
+\end{example}
+
+\begin{remark}
+  Notons que $0 \in \mathbb{N}$. Pour parler des entiers naturels
+  strictement positifs, on utilise la notation $\mathbb{N}^*$ :
+  \[
+    \mathbb{N}^* = \mathbb{N} \setminus \{0\}
+    = \{1, 2, 3, \dots\}.
+  \]
+\end{remark}
+
+\newpage
 \section*{Conclusion}
 \addcontentsline{toc}{section}{Conclusion}
 
