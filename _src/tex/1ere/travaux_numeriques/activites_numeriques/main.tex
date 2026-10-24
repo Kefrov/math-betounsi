@@ -9,10 +9,14 @@
 \usepackage[hidelinks]{hyperref}
 \usepackage{cleveref}
 \usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{standalone}
+\usetikzlibrary{decorations.pathreplacing}
 \usepackage{xcolor}
 \definecolor{accent}{HTML}{244470} % not exactly navy blue, but better imo
 \usepackage{geometry}
 \geometry{hmargin=2cm,vmargin=2cm}
+\usepackage{enumitem}
 
 \usepackage{titlesec}
 % Style the sections with the navy color
@@ -34,7 +38,7 @@
     enhanced,
     colback=white,
     colframe=accent,
-    boxrule=0pt,
+    boxrule=0.4pt,
     leftrule=3pt,
     arc=0pt,
     outer arc=0pt,
@@ -87,7 +91,7 @@
 
 \newpage
 % \texorpdfstring{}{} is cool for pdf bookmarks
-\section{Arithmétique dans \texorpdfstring{\(\mathbb{N}\)}{N}}
+\section{Arithmétique dans \texorpdfstring{$\mathbb{N}$}{N}}
 
 \subsection{Les Ensembles}
 
@@ -149,7 +153,7 @@ La notation de l'exemple suivant sert à décrire des ensembles dont les
 éléments vérifient des conditions précises.
 
 \begin{example}
-  Soit $E$ le même ensemble que dans \cref{eg1.1}. On peut aussi écrire
+  Soit $E$ le même ensemble que dans Exemple~\ref{eg1.1}. On peut aussi écrire
   \[
     E = \{x \in \mathbb{N} \mid x \text{ est pair et } 1 \le x \le 10\}.
   \]
@@ -173,6 +177,277 @@ La notation de l'exemple suivant sert à décrire des ensembles dont les
     = \{1, 2, 3, \dots\}.
   \]
 \end{remark}
+
+\subsection{Divisibilité}
+
+\begin{tcolorbox}[navybar]
+\begin{definition}
+  Soit $a \in \mathbb{N}$ et $b \in \mathbb{N}^*$. On dit que $b$
+  divise $a$ si $a = bq$ pour un certain $q \in \mathbb{N}$. Dans ce
+  cas, $b$ est un diviseur de $a$ et $a$ est un multiple de $b$.
+  \label{def1.4}
+\end{definition}
+\end{tcolorbox}
+
+Une conséquence facile de cette définition est que $0$ est un multiple
+de tout entier naturel non nul, car $0 = b \times 0$. Mais attention :
+on ne divise pas par $0$, et c'est pour cela que la définition demande
+$b \in \mathbb{N}^*$. Pour comprendre, voyons la division comme la
+question : combien de fois faut-il ajouter $b$ pour obtenir $a$ ?
+Si $b = 0$, la somme reste toujours égale à $0$. On n'obtient donc
+jamais un $a$ non nul, et pour $a = 0$ n'importe quel nombre de fois
+convient, donc le résultat n'est pas unique.
+
+\begin{example}
+  Supposons que l'on veuille diviser $12$ par $4$. Il faut
+  $4 + 4 + 4 = 4 \times 3 = 12$.
+  Ici, le nombre $q$ de la Définition~\ref{def1.4} vaut $3$.
+\end{example}
+
+\begin{remark}
+  Pour deux affirmations $A$ et $B$, la notation
+  $A \Longleftrightarrow B$ signifie que $A$ entraîne $B$ et que $B$
+  entraîne $A$. Autrement dit, $A \implies B$ et $B \implies A$ sont
+  toutes les deux vraies. Le symbole $\Longleftrightarrow$ et
+  l'expression «~si et seulement si~» ont le même sens. Par exemple,
+  «~$10$ divise $a$~» signifie que le chiffre des unités de $a$ est
+  $0$, et réciproquement, si le chiffre des unités de $a$ est $0$,
+  alors $10$ divise $a$.
+
+  Attention, une seule implication ne suffit pas : si $4$ divise $a$,
+  alors $2$ divise $a$, mais la réciproque est fausse (par exemple,
+  $6$ est divisible par $2$ mais pas par $4$).
+\end{remark}
+
+On peut aussi voir la divisibilité avec les fractions : pour
+$a \in \mathbb{N}$ et $b \in \mathbb{N}^*$, $b$ divise $a$ si et
+seulement si $\frac{a}{b} \in \mathbb{N}$. Quand $b$ ne divise pas $a$,
+le quotient n'est pas un entier naturel. Par exemple,
+$\frac{7}{2} = 3.5 \notin \mathbb{N}$.
+
+\begin{tcolorbox}[navybar]
+\begin{definition}
+  Soit $a \in \mathbb{N}$ et $b \in \mathbb{N}^*$. La division
+  euclidienne de $a$ par $b$ est l'écriture
+  \[
+    a = bq + r,
+  \]
+  où $q, r \in \mathbb{N}$ et $0 \le r < b$.
+  Le nombre $q$ s'appelle le quotient et $r$ s'appelle le reste.
+\end{definition}
+\end{tcolorbox}
+
+On peut voir la division euclidienne comme le fait de retirer $b$ de
+$a$ le plus de fois possible, jusqu'à ce que ce qui reste soit plus
+petit que $b$. Le nombre de soustractions est le quotient $q$, et ce
+qui reste est le reste $r$. C'est illustré dans la
+Figure~\ref{fig:division_euclidienne} ci-dessous.
+
+\begin{figure}[htbp]
+    \centering
+    \includestandalone[width=0.8\textwidth]{figures/division_euclidienne}
+
+    \caption{Division euclidienne de $14$ par $4$.}
+    \label{fig:division_euclidienne}
+\end{figure}
+
+Dans la formule de la division euclidienne, le cas $r = 0$ donne
+$a = bq$, qui est exactement la condition de la
+Définition~\ref{def1.4}. D'où le théorème suivant.
+
+\begin{tcolorbox}[navybar]
+\begin{theorem}
+  Soit $a \in \mathbb{N}$ et $b \in \mathbb{N}^*$. Le nombre $a$ est
+  divisible par $b$ si et seulement si le reste de la division
+  euclidienne de $a$ par $b$ est $0$.
+\end{theorem}
+\end{tcolorbox}
+
+\begin{proof}
+  Si le reste est $0$, alors $a = bq$, donc $b$ divise $a$.
+
+  Réciproquement, si $b$ divise $a$, alors $a = bq$ pour un certain
+  $q \in \mathbb{N}$. On peut écrire $a = bq + 0$ avec $0 \le 0 < b$.
+  C'est donc la division euclidienne de $a$ par $b$ (le couple
+  $(q, r)$ est unique), et son reste est $0$.
+\end{proof}
+
+\begin{example}
+  Considérons la division euclidienne d'un entier naturel $x$ par $2$.
+  Comme $0 \le r < 2$, le reste $r$ vaut $0$ ou $1$. Ces deux
+  possibilités déterminent la parité de $x$.
+
+  En effet, $x$ est pair s'il est divisible par $2$, c'est-à-dire
+  $x = 2k$ pour un certain $k \in \mathbb{N}$. De même, $x$ est impair
+  s'il peut s'écrire $x = 2k + 1$ pour un certain $k \in \mathbb{N}$.
+  Évidemment, tout entier naturel est soit pair, soit impair.
+\end{example}
+
+\begin{remark}
+  Vous connaissez déjà la différence entre une constante et une
+  variable. La variable est la première étape vers l'abstraction
+  mathématique : au lieu de travailler avec un seul nombre fixé, on
+  utilise un symbole (par exemple $a$, $b$, $\alpha$, $\lambda$) qui
+  peut représenter n'importe quel nombre d'un ensemble donné.
+
+  Par exemple, $\sqrt{2}$, $\pi$ et $5$ sont des constantes. Au
+  contraire, un entier impair s'écrit $2k + 1$ avec $k \in \mathbb{N}$ :
+  ici, $k$ est une variable. Quand on écrit «~Soit
+  $a \in \mathbb{N}$~», $a$ est un entier quelconque, mais fixé le
+  temps du raisonnement.
+
+  Bientôt, nous allons démontrer des propriétés. Vérifier une propriété
+  pour une valeur précise (e.g., $x = 3$) ne la démontre pas en
+  général. Pour démontrer qu'elle est toujours vraie, il faut raisonner
+  avec la variable, pour que cela marche pour \textit{toutes} les
+  valeurs possibles.
+\end{remark}
+
+Passons maintenant aux critères de divisibilité. D'abord, nous
+admettons que tout entier naturel non nul $a$ de $n$ chiffres s'écrit
+sous la forme
+
+\[
+  a = a_n a_{n-1} \cdots a_2 a_1
+    = 10^{n-1}a_n + \cdots + 10a_2 + a_1,
+\]
+
+où chaque $a_i$ est un chiffre, c'est-à-dire
+$a_i \in \{0,1,\dots,9\}$, et $a_n \neq 0$. Cela vient de l'écriture
+décimale positionnelle que nous utilisons pour écrire les nombres.
+
+\begin{example}
+  Pour $n = 3$, on a
+  \[
+    a_3a_2a_1 = 100a_3 + 10a_2 + a_1.
+  \]
+  En particulier,
+  \[
+    \begin{aligned}
+      521 &= 500 + 20 + 1 \\
+          &= 100 \cdot 5 + 10 \cdot 2 + 1.
+    \end{aligned}
+  \]
+\end{example}
+
+\begin{tcolorbox}[navybar]
+\begin{theorem}
+  Soit $a$ un entier naturel non nul dont l'écriture décimale est
+  $a_n \cdots a_2a_1$, où $a_1$ est le chiffre des unités, $a_2$ celui
+  des dizaines, et ainsi de suite. Si $a$ a moins de chiffres que
+  nécessaire, les chiffres manquants valent $0$. On a les critères de
+  divisibilité suivants :
+  \begin{enumerate}[label=(\alph*)]
+      \item $2$ divise $a$ si et seulement si
+      $a_1 \in \{0,2,4,6,8\}$.
+      \item $3$ divise $a$ $\Longleftrightarrow$ $3$ divise
+      $a_n + \cdots + a_2 + a_1$.
+      \item $4$ divise $a$ $\Longleftrightarrow$ $4$ divise
+      $a_2a_1$.
+      \item $5$ divise $a$ si et seulement si $a_1 \in \{0,5\}$.
+      \item $8$ divise $a$ $\Longleftrightarrow$ $8$ divise
+      $a_3a_2a_1$.
+      \item $9$ divise $a$ $\Longleftrightarrow$ $9$ divise
+      $a_n + \cdots + a_2 + a_1$.
+      \item $10$ divise $a$ si et seulement si $a_1 = 0$.
+  \end{enumerate}
+\end{theorem}
+\end{tcolorbox}
+
+\begin{proof}
+  Exercice~??.
+\end{proof}
+
+\subsection{Nombres premiers}
+
+\begin{tcolorbox}[navybar]
+\begin{definition}
+  Un nombre premier est un entier naturel supérieur à $1$ qui possède
+  exactement deux diviseurs positifs : $1$ et lui-même.
+\end{definition}
+\end{tcolorbox}
+
+Des exemples de nombres premiers sont $2$, $5$ et $31$. Remarquons que
+$2$ est le seul nombre premier pair, car tout nombre pair supérieur à
+$2$ a au moins trois diviseurs positifs distincts : $1$, $2$ et
+lui-même.
+
+\begin{remark}
+  Le nombre $1$ n'est pas premier, car il n'a qu'un seul diviseur
+  positif : lui-même.
+\end{remark}
+
+Les nombres premiers sont très importants, car ce sont les briques de
+tous les entiers naturels supérieurs à $1$, comme le montre le
+théorème suivant.
+
+\begin{tcolorbox}[navybar]
+\begin{theorem}[\textbf{Théorème fondamental de l'arithmétique}]
+  Tout entier naturel $n > 1$ peut s'écrire comme un produit de
+  nombres premiers. De plus, cette décomposition est unique, à l'ordre
+  des facteurs près.
+
+  Autrement dit, tout entier naturel $n > 1$ s'écrit de façon unique
+  sous la forme
+  \[
+    n = p_1^{e_1} \times p_2^{e_2} \times \cdots \times p_k^{e_k},
+  \]
+  où $p_1 < p_2 < \cdots < p_k$ sont des nombres premiers et
+  $e_1, e_2, \dots, e_k$ sont des entiers strictement positifs.
+\end{theorem}
+\end{tcolorbox}
+
+\begin{remark}
+  Ce résultat peut sembler évident. L'existence de la décomposition
+  découle de l'algorithme ci-dessous, qui s'arrête toujours car $m$
+  diminue chaque fois qu'on le divise. Pour l'unicité, une preuve
+  rigoureuse demande des outils qui dépassent le cadre de ce cours.
+  Nous l'admettons donc sans preuve.
+\end{remark}
+
+Ce théorème donne l'idée de la décomposition en facteurs premiers, un
+algorithme qui permet d'écrire un entier naturel $n > 1$ comme un
+produit de nombres premiers sous la forme ci-dessus. Avant d'énoncer
+ses étapes, considérons la suite $P$ des nombres premiers, où $P_i$
+désigne le $i$-ème plus petit nombre premier. Les nombres premiers
+inférieurs à $50$ sont :
+\[
+  2,\ 3,\ 5,\ 7,\ 11,\ 13,\ 17,\ 19,\ 23,\ 29,\ 31,\ 37,\ 41,\ 43,\ 47.
+\]
+Ainsi, $P_1 = 2$, $P_2 = 3$, $P_3 = 5$, et ainsi de suite. Dans
+l'algorithme, la variable $m$ change de valeur à chaque étape.
+
+\begin{enumerate}
+  \item On commence avec $m=n$ et $i=1$.
+  \item Si $P_i$ divise $m$, on écrit $P_i$ comme facteur premier et
+  on remplace $m$ par $m/P_i$. On garde la même valeur de $i$, car
+  $P_i$ peut diviser $m$ plusieurs fois.
+  \item Si $P_i$ ne divise pas $m$, on passe au nombre premier suivant
+  en remplaçant $i$ par $i+1$.
+  \item Si $m \neq 1$, on retourne à l'étape 2. Sinon, on passe à
+l'étape 5. 
+  \item Enfin, on regroupe les facteurs premiers identiques et on les
+  écrit sous forme de puissances.
+\end{enumerate}
+
+\begin{example}
+  On veut écrire $504$ comme un produit de nombres premiers. En
+  appliquant l'algorithme, on obtient
+  \[
+  \begin{array}{r|l}
+  504 & 2 \\
+  252 & 2 \\
+  126 & 2 \\
+  63 & 3 \\
+  21 & 3 \\
+    7 & 7 \\
+    1 &
+  \end{array}
+  \]
+  et donc $504 = 2^3 \times 3^2 \times 7^1$.
+\end{example}
+
+\subsection{\texorpdfstring{$\operatorname{PGCD}$}{PGCD} et \texorpdfstring{$\operatorname{PPCM}$}{PPCM}}
 
 \newpage
 \section*{Conclusion}
