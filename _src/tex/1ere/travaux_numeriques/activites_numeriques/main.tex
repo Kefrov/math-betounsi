@@ -32,23 +32,36 @@
   {}
 
 \usepackage[many]{tcolorbox}
-% Create a box that is white, but has a 3pt navy line on the left
+% Create a box that is white, but has a 3pt line on the left
 \tcbset{
+  % Use for Theorems and Definitions
   navybar/.style={
     enhanced,
     colback=white,
     colframe=accent,
-    boxrule=0.4pt,
+    boxrule=0.6pt,
     leftrule=3pt,
     arc=0pt,
     outer arc=0pt,
     left=8pt, right=8pt, top=6pt, bottom=6pt
-  }
+  },
+  % Use for properties / less important results
+  graybar/.style={
+    enhanced,
+    colback=white,
+    colframe=gray!70,
+    boxrule=0.6pt,
+    leftrule=3pt,
+    arc=0pt,
+    outer arc=0pt,
+    left=8pt, right=8pt, top=6pt, bottom=6pt
+  },
 }
 
 % Theorems and definitions
 \theoremstyle{plain}
 \newtheorem{theorem}{Théorème}[section]
+\newtheorem{property}[theorem]{Propriété}
 
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Définition}
@@ -59,6 +72,10 @@
 \theoremstyle{remark}
 \newtheorem*{remark}{Remarque}
 \newtheorem*{recall}{Rappel}
+
+% Custom Math Operators
+\DeclareMathOperator{\ppcm}{PPCM}
+\DeclareMathOperator{\pgcd}{PGCD}
 
 \begin{document}
 
@@ -93,7 +110,7 @@
 % \texorpdfstring{}{} is cool for pdf bookmarks
 \section{Arithmétique dans \texorpdfstring{$\mathbb{N}$}{N}}
 
-\subsection{Les Ensembles}
+\subsection{Les ensembles}
 
 Les mathématiques étudient la logique, les régularités et les relations
 entre des objets mathématiques. Les ensembles permettent de regrouper ces
@@ -110,7 +127,7 @@ d'éléments, à condition que ces éléments soient bien définis.
   De même, $X \subseteq E$ signifie que $X$ est une partie de $E$,
   c'est-à-dire que chaque élément de $X$ appartient aussi à $E$.
   Par exemple, $\{4, 8\} \subseteq E$.
-  \label{eg1.1}
+  \label{eg:set}
 \end{example}
 
 Voici deux propriétés importantes des ensembles :
@@ -153,7 +170,7 @@ La notation de l'exemple suivant sert à décrire des ensembles dont les
 éléments vérifient des conditions précises.
 
 \begin{example}
-  Soit $E$ le même ensemble que dans Exemple~\ref{eg1.1}. On peut aussi écrire
+  Soit $E$ le même ensemble que dans Exemple~\ref{eg:set}. On peut aussi écrire
   \[
     E = \{x \in \mathbb{N} \mid x \text{ est pair et } 1 \le x \le 10\}.
   \]
@@ -185,9 +202,13 @@ La notation de l'exemple suivant sert à décrire des ensembles dont les
   Soit $a \in \mathbb{N}$ et $b \in \mathbb{N}^*$. On dit que $b$
   divise $a$ si $a = bq$ pour un certain $q \in \mathbb{N}$. Dans ce
   cas, $b$ est un diviseur de $a$ et $a$ est un multiple de $b$.
-  \label{def1.4}
+  \label{def:division}
 \end{definition}
 \end{tcolorbox}
+
+\begin{remark}
+  Au lieu d'écrire « $b$ divise $a$ », on peut aussi écrire $b \mid a$.
+\end{remark}
 
 Une conséquence facile de cette définition est que $0$ est un multiple
 de tout entier naturel non nul, car $0 = b \times 0$. Mais attention :
@@ -201,7 +222,7 @@ convient, donc le résultat n'est pas unique.
 \begin{example}
   Supposons que l'on veuille diviser $12$ par $4$. Il faut
   $4 + 4 + 4 = 4 \times 3 = 12$.
-  Ici, le nombre $q$ de la Définition~\ref{def1.4} vaut $3$.
+  Ici, le nombre $q$ de la Définition~\ref{def:division} vaut $3$.
 \end{example}
 
 \begin{remark}
@@ -214,9 +235,12 @@ convient, donc le résultat n'est pas unique.
   $0$, et réciproquement, si le chiffre des unités de $a$ est $0$,
   alors $10$ divise $a$.
 
-  Attention, une seule implication ne suffit pas : si $4$ divise $a$,
-  alors $2$ divise $a$, mais la réciproque est fausse (par exemple,
-  $6$ est divisible par $2$ mais pas par $4$).
+  Attention : pour écrire $A \Longleftrightarrow B$, il faut que les
+  deux implications soient vraies. Par exemple, si $4$ divise $a$,
+  alors $2$ divise $a$. Mais la réciproque est fausse, c'est-à-dire
+  que «~si $2$ divise $a$, alors $4$ divise $a$~» est faux : $6$ est
+  divisible par $2$, mais pas par $4$. On ne peut donc pas écrire
+  «~$4$ divise $a$ $\Longleftrightarrow$ $2$ divise $a$~».
 \end{remark}
 
 On peut aussi voir la divisibilité avec les fractions : pour
@@ -224,6 +248,25 @@ $a \in \mathbb{N}$ et $b \in \mathbb{N}^*$, $b$ divise $a$ si et
 seulement si $\frac{a}{b} \in \mathbb{N}$. Quand $b$ ne divise pas $a$,
 le quotient n'est pas un entier naturel. Par exemple,
 $\frac{7}{2} = 3.5 \notin \mathbb{N}$.
+
+\begin{tcolorbox}[graybar]
+\begin{property}
+  Soient $a \in \mathbb{N}$ et $b, c \in \mathbb{N}^*$. Si $b \mid a$ et $c \mid b$,
+  alors $c \mid a$.
+\end{property}
+\end{tcolorbox}
+
+\begin{proof}
+  Supposons que $b \mid a$ et $c \mid b$. Il existe alors $k,\ell\in\mathbb{N}$ tels que
+  \[
+    a=bk \quad\text{et}\quad b=c\ell.
+  \]
+  En substituant l'expression de $b$ dans celle de $a$, on obtient
+  \[
+    a=(c\ell)k=c(\ell k).
+  \]
+  Comme $\ell k\in\mathbb{N}$, on a bien $c\mid a$.
+\end{proof}
 
 \begin{tcolorbox}[navybar]
 \begin{definition}
@@ -253,14 +296,14 @@ Figure~\ref{fig:division_euclidienne} ci-dessous.
 
 Dans la formule de la division euclidienne, le cas $r = 0$ donne
 $a = bq$, qui est exactement la condition de la
-Définition~\ref{def1.4}. D'où le théorème suivant.
+Définition~\ref{def:division}. D'où la propriété suivante.
 
-\begin{tcolorbox}[navybar]
-\begin{theorem}
+\begin{tcolorbox}[graybar]
+\begin{property}
   Soit $a \in \mathbb{N}$ et $b \in \mathbb{N}^*$. Le nombre $a$ est
   divisible par $b$ si et seulement si le reste de la division
   euclidienne de $a$ par $b$ est $0$.
-\end{theorem}
+\end{property}
 \end{tcolorbox}
 
 \begin{proof}
@@ -268,8 +311,7 @@ Définition~\ref{def1.4}. D'où le théorème suivant.
 
   Réciproquement, si $b$ divise $a$, alors $a = bq$ pour un certain
   $q \in \mathbb{N}$. On peut écrire $a = bq + 0$ avec $0 \le 0 < b$.
-  C'est donc la division euclidienne de $a$ par $b$ (le couple
-  $(q, r)$ est unique), et son reste est $0$.
+  C'est la division euclidienne de $a$ par $b$ (par unicité de $(q,r)$), avec $r = 0$.
 \end{proof}
 
 \begin{example}
@@ -330,8 +372,8 @@ décimale positionnelle que nous utilisons pour écrire les nombres.
   \]
 \end{example}
 
-\begin{tcolorbox}[navybar]
-\begin{theorem}
+\begin{tcolorbox}[graybar]
+\begin{property}
   Soit $a$ un entier naturel non nul dont l'écriture décimale est
   $a_n \cdots a_2a_1$, où $a_1$ est le chiffre des unités, $a_2$ celui
   des dizaines, et ainsi de suite. Si $a$ a moins de chiffres que
@@ -349,13 +391,13 @@ décimale positionnelle que nous utilisons pour écrire les nombres.
       $a_3a_2a_1$.
       \item $9$ divise $a$ $\Longleftrightarrow$ $9$ divise
       $a_n + \cdots + a_2 + a_1$.
-      \item $10$ divise $a$ si et seulement si $a_1 = 0$.
   \end{enumerate}
-\end{theorem}
+  \label{prop:div_rules}
+\end{property}
 \end{tcolorbox}
 
 \begin{proof}
-  Exercice~??.
+  Exercice~\ref{}
 \end{proof}
 
 \subsection{Nombres premiers}
@@ -447,7 +489,330 @@ l'étape 5.
   et donc $504 = 2^3 \times 3^2 \times 7^1$.
 \end{example}
 
-\subsection{\texorpdfstring{$\operatorname{PGCD}$}{PGCD} et \texorpdfstring{$\operatorname{PPCM}$}{PPCM}}
+\subsection{PGCD et PPCM}
+
+Le PGCD et le PPCM permettent d'étudier les diviseurs et les multiples
+communs de deux entiers naturels. Nous allons commencer par les définir,
+puis voir comment les calculer.
+
+\begin{tcolorbox}[navybar]
+\begin{definition}
+  Soient $a,b \in \mathbb{N}$ non tous les deux nuls. On note $\pgcd(a,b)$
+  le plus grand commun diviseur de $a$ et $b$, i.e., le plus grand
+  entier naturel qui divise à la fois $a$ et $b$.
+
+  Lorsque $a$ et $b$ sont non nuls, on note $\ppcm(a,b)$ le plus petit
+  commun multiple de $a$ et $b$, i.e., le plus petit entier naturel
+  non nul qui est à la fois un multiple de $a$ et un multiple de $b$.
+\end{definition}
+\end{tcolorbox}
+
+\begin{example}
+  Prenons $a=12$ et $b=18$. En listant les diviseurs de chaque nombre,
+  on obtient
+  \[
+    D(12)=\{1,2,3,4,6,12\},\qquad
+    D(18)=\{1,2,3,6,9,18\}.
+  \]
+  Le plus grand diviseur commun est $6$. Ainsi, $\pgcd(12,18)=6$.
+
+  En listant les multiples strictement positifs, on obtient
+  \[
+    M(12)=\{12,24,36,48,\ldots\},\qquad
+    M(18)=\{18,36,54,\ldots\}.
+  \]
+  Le plus petit multiple commun non nul est $36$.
+  Ainsi, $\ppcm(12,18)=36$.
+  \label{eg:div_gcd}
+\end{example}
+
+\begin{remark}
+  On a $D(0)=\mathbb{N}^*$ et $M(0)=\varnothing$, où $M(0)$ désigne
+  l'ensemble des multiples strictement positifs de $0$.
+  Ainsi, pour tout $a\in\mathbb{N}^*$,
+  \[
+    \pgcd(a,0)=a.
+  \]
+  En revanche, $\ppcm(a,0)$ n'existe pas, car $0$ n'a aucun multiple
+  strictement positif.
+\end{remark}
+
+Une autre méthode consiste à utiliser la décomposition en facteurs
+premiers de chaque nombre.
+
+\begin{example}
+  Écrivons $120$ et $126$ comme produits de facteurs premiers :
+  \[
+    120=\textcolor{green!60!black}{2^3}
+      \times\textcolor{green!60!black}{3}
+      \times\textcolor{green!60!black}{5}
+    \qquad\text{et}\qquad
+    126=\textcolor{red}{2}
+      \times\textcolor{red}{3^2}
+      \times\textcolor{red}{7}.
+  \]
+
+  Pour calculer le $\pgcd$, on prend les facteurs premiers communs aux deux
+  décompositions, avec le plus petit exposant :
+  \[
+    \pgcd(120,126)
+    =\textcolor{red}{2}\times\textcolor{green!60!black}{3}
+    =6.
+  \]
+
+  Pour calculer le $\ppcm$, on prend tous les facteurs premiers présents
+  dans au moins une des deux décompositions, avec le plus grand exposant :
+  \[
+    \ppcm(120,126)
+    =\textcolor{green!60!black}{2^3}
+      \times\textcolor{red}{3^2}
+      \times\textcolor{green!60!black}{5}
+      \times\textcolor{red}{7}
+    =2520.
+  \]
+  \label{eg:fact_gcd}
+\end{example}
+
+Dans l'exemple précédent, le $\pgcd$ utilise les plus petits exposants des
+facteurs premiers communs, tandis que le $\ppcm$ utilise les plus grands
+exposants de tous les facteurs premiers. Le produit du $\pgcd$ 
+et du $\ppcm$ contient donc chaque puissance de facteur premier nécessaire pour 
+reconstituer $120$ et $126$. Ainsi,
+\[
+  \begin{aligned}
+    \pgcd(120,126)\times\ppcm(120,126)
+    &= (\textcolor{red}{2}\times\textcolor{green!60!black}{3})
+       \times(\textcolor{green!60!black}{2^3}\times\textcolor{red}{3^2}
+       \times\textcolor{green!60!black}{5}\times\textcolor{red}{7})\\
+    &= (\textcolor{green!60!black}{2^3}\times\textcolor{green!60!black}{3}
+       \times\textcolor{green!60!black}{5})
+       \times(\textcolor{red}{2}\times\textcolor{red}{3^2}
+       \times\textcolor{red}{7})\\
+    &=120\times126.
+  \end{aligned}
+\]
+On admet donc le théorème suivant.
+
+\begin{tcolorbox}[navybar]
+  \begin{theorem}
+    Pour tous $a,b\in\mathbb{N}^*$, on a
+    \[
+      \pgcd(a,b)\times\ppcm(a,b)=a\times b.
+    \]
+  \end{theorem}
+\end{tcolorbox}
+
+\begin{remark}
+  Si $a$ est un multiple de $b$, avec $a,b\in\mathbb{N}^*$, alors
+  \[
+    \pgcd(a,b)=b\qquad\text{et}\qquad\ppcm(a,b)=a.
+  \]
+  Vérifier par vous-même que le théorème précédent reste vrai dans ce cas.
+\end{remark}
+
+La décomposition en facteurs premiers est utile, mais elle peut demander
+beaucoup de calculs lorsque les nombres sont grands.
+L'algorithme d'Euclide permet souvent de calculer le $\pgcd$ plus rapidement.
+Il repose sur le théorème suivant.
+
+\begin{tcolorbox}[navybar]
+  \begin{theorem}
+    Soient $a,b\in\mathbb{N}^*$. Si la division euclidienne de $a$ par $b$
+    s'écrit $a = bq + r$, alors
+    \[
+      \pgcd(a,b)=\pgcd(b,r).
+    \]
+  \end{theorem}
+\end{tcolorbox}
+
+\begin{proof}
+  Exercice~\ref{}
+\end{proof}
+
+Si $r=0$, alors $\pgcd(a,b)=\pgcd(b,0)=b$, et l'algorithme s'arrête.
+
+Sinon, $r>0$, et on peut appliquer le théorème de nouveau, cette fois à la division euclidienne de $b$ par $r$ :
+\[
+  b = rq' + r', \qquad 0 \le r' < r.
+\]
+On obtient alors
+\[
+  \pgcd(a,b) = \pgcd(b,r) = \pgcd(r,r').
+\]
+En répétant ce procédé, on construit une suite de restes strictement
+décroissants $b > r > r' > \cdots \ge 0$. Une telle suite d'entiers
+naturels est nécessairement finie : on finit donc par obtenir un reste nul.
+Comme $\pgcd(m,0)=m$ pour tout $m\in\mathbb{N}^*$, le dernier reste non nul
+est le PGCD de $a$ et $b$.
+
+\begin{example}
+  Calculons $\pgcd(2430,756)$ à l'aide de l'algorithme d'Euclide :
+  \[
+    \begin{aligned}
+      2430&=3\times756+162,\\
+      756&=4\times162+108,\\
+      162&=1\times108+54,\\
+      108&=2\times54+0.
+    \end{aligned}
+  \]
+  Le dernier reste non nul est $54$.
+  Ainsi, $\pgcd(2430,756)=54$.
+\end{example}
+
+Nous avons déjà étudié, dans la Propriété~\ref{prop:div_rules}, des critères
+de divisibilité par certains nombres, comme $2$, $3$, $4$ et $5$. Pour
+obtenir des critères de divisibilité par des nombres composés, comme $10$
+ou $15$, la notion de nombres premiers entre eux est utile.
+
+\begin{tcolorbox}[navybar]
+  \begin{definition}
+    Deux entiers naturels non nuls $a$ et $b$ sont dits
+    \emph{premiers entre eux} si
+    \[
+      \pgcd(a,b)=1.
+    \]
+  \end{definition}
+\end{tcolorbox}
+
+\begin{example}
+  Montrons que $8$ et $15$ sont premiers entre eux.
+  L'algorithme d'Euclide donne
+  \[
+    \begin{aligned}
+      15&=1\times8+7,\\
+      8&=1\times7+1,\\
+      7&=7\times1+0.
+    \end{aligned}
+  \]
+  Le dernier reste non nul est $1$, donc $\pgcd(8,15)=1$.
+  Ainsi, $8$ et $15$ sont premiers entre eux.
+\end{example}
+
+\begin{tcolorbox}[navybar]
+  \begin{theorem}
+    Soient $a,b,c\in\mathbb{N}^*$. Si $a$ et $b$ sont premiers entre eux,
+    et si $a\mid c$ et $b\mid c$, alors $ab\mid c$.
+  \end{theorem}
+\end{tcolorbox}
+
+\begin{proof}
+  Si $a=1$ ou $b=1$, le résultat est immédiat.
+  Sinon, écrivons les décompositions en facteurs premiers de $a$ et $b$ :
+  \[
+    a=p_1^{\alpha_1}\cdots p_k^{\alpha_k},\qquad
+    b=q_1^{\beta_1}\cdots q_m^{\beta_m}.
+  \]
+  Comme $\pgcd(a,b)=1$, aucun facteur premier de $a$ n'est un facteur
+  premier de $b$. Puisque $a\mid c$, la décomposition en facteurs premiers
+  de $c$ contient les facteurs premiers de $a$ avec des exposants suffisants.
+  De même, puisque $b\mid c$, elle contient les facteurs premiers de $b$
+  avec des exposants suffisants.
+
+  Les facteurs premiers de $a$ et de $b$ étant distincts, la décomposition
+  de $c$ contient donc tous les facteurs premiers nécessaires pour obtenir
+  $ab$. Ainsi, $ab\mid c$.
+\end{proof}
+
+La décomposition en facteurs premiers est donc un outil important pour
+étudier la divisibilité. 
+C'est en ce sens que le théorème fondamental de l'arithmétique mérite son adjectif
+\emph{fondamental} : les nombres premiers sont les briques à partir
+desquelles tous les entiers naturels supérieurs à $1$ sont construits.
+
+\begin{example}
+  Comme $\pgcd(3,4)=1$ et $12=3\times4$, le théorème précédent montre que
+  si un entier naturel $n$ est divisible par $3$ et par $4$, alors il est
+  divisible par $12$. Réciproquement, si $12\mid n$, alors $3\mid n$ et
+  $4\mid n$. Ainsi,
+  \[
+    12\mid n
+    \quad\Longleftrightarrow\quad
+    3\mid n\text{ et }4\mid n.
+  \]
+\end{example}
+
+\begin{example}
+  Un entier naturel est divisible par $10$ si et seulement s'il est divisible
+  par $2$ et par $5$, car $\pgcd(2,5)=1$ et $10=2\times5$.
+
+  D'après les critères de divisibilité, le chiffre des unités d'un nombre
+  divisible par $2$ appartient à $\{0,2,4,6,8\}$, tandis que celui d'un
+  nombre divisible par $5$ appartient à $\{0,5\}$. L'intersection de ces
+  deux ensembles est $\{0\}$. Donc un entier naturel est divisible par $10$
+  si et seulement si son chiffre des unités est $0$.
+\end{example}
+
+\begin{example}
+  D'après la Propriété~\ref{prop:div_rules}, un entier naturel est divisible
+  par $9$ si et seulement si la somme de ses chiffres est divisible par $9$.
+  Par exemple, $1728$ a pour somme de chiffres $1+7+2+8=18$, donc
+  $9\mid1728$.
+
+  De même, $90=10\times9$ et $\pgcd(10,9)=1$. Ainsi, un entier naturel est
+  divisible par $90$ si et seulement s'il est divisible par $10$ et par $9$.
+  Considérons $14490$ : la somme de ses chiffres vaut
+  $1+4+4+9+0=18$, donc $9\mid14490$ ; et son chiffre des unités est $0$,
+  donc $10\mid14490$. Par conséquent, $90\mid14490$. En effet,
+  $14490=90\times161$.
+\end{example}
+
+\begin{recall}
+  Soient $a,b,c,d,k\in\mathbb{N}$ avec $b\ne0$ et $d\ne0$. On a
+  \[
+    \frac{a}{b}=\frac{c}{d}
+    \quad\Longleftrightarrow\quad
+    ad=bc,
+  \]
+  \[
+    \frac{a}{b}+\frac{c}{d}=\frac{ad+bc}{bd},\qquad
+    k\times\frac{a}{b}=\frac{ka}{b},\qquad
+    \frac{a}{b}\times\frac{c}{d}=\frac{ac}{bd}.
+  \]
+  Si $a\ne0$, l'inverse de $\frac{a}{b}$ est $\frac{b}{a}$.
+  Si $c\ne0$, on a également
+  \[
+    \frac{\frac{a}{b}}{\frac{c}{d}}=\frac{ad}{bc}.
+  \]
+  Les lettres $a,b,c,d,k$ peuvent
+  évidemment être prises dans $\mathbb{R}$ plutôt que dans $\mathbb{N}$.
+  Nous introduirons l'ensemble $\mathbb{R}$ dans la section suivante, ainsi
+  que certains de ses sous-ensembles, notamment $\mathbb{Z}$, $\mathbb{D}$
+  et $\mathbb{Q}$.
+\end{recall}
+
+Vous connaissez déjà la tâche qui consiste à rendre une
+fraction irréductible. Soient $a,b\in\mathbb{N}^*$ et considérons la
+fraction $\frac{a}{b}$. Pour la simplifier, on peut décomposer $a$ et $b$
+en facteurs premiers, puis supprimer leurs facteurs communs. Or supprimer
+tous les facteurs communs revient exactement à diviser $a$ et $b$ par leur
+PGCD. Posons donc $g=\pgcd(a,b)$, $a'=a/g$ et $b'=b/g$. Alors
+\[
+  \frac{a}{b}
+  = \frac{a \times \frac{1}{g}}{b \times \frac{1}{g}}
+  =\frac{a/g}{b/g}
+  =\frac{a'}{b'}.
+\]
+Les nombres $a'$ et $b'$ sont premiers entre eux : sinon, ils auraient un
+diviseur commun $d>1$, et $dg$ serait un diviseur commun de $a$ et $b$
+strictement supérieur à $g$, ce qui contredit la maximalité de $g$. La
+fraction $\frac{a'}{b'}$ est donc irréductible.
+
+\begin{example}
+  Rendre la fraction $\frac{84}{126}$ irréductible. On a
+  \[
+    \pgcd(84,126)=42.
+  \]
+  En divisant le numérateur et le dénominateur par $42$, on obtient
+  \[
+    \frac{84}{126}
+    =\frac{84/42}{126/42}
+    =\frac{2}{3}.
+  \]
+  Comme $\pgcd(2,3)=1$, la fraction $\frac{2}{3}$ est irréductible.
+\end{example}
+
+\newpage
+\section{Les ensembles de nombres}
 
 \newpage
 \section*{Conclusion}
