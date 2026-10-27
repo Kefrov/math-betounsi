@@ -98,13 +98,52 @@
 \noindent{\color{accent}\rule{\linewidth}{0.9pt}}
 \par\vspace{0.5cm}
 
-
-\renewcommand{\contentsname}{Sommaire}
 \tableofcontents
 
 \newpage
+\phantomsection
 \section*{Introduction}
 \addcontentsline{toc}{section}{Introduction}
+
+Ce cours regroupe les chapitres «~Activités numériques I~» et «~Activités numériques
+II~» du manuel scolaire.
+
+Dans le manuel, cette partie ressemble plus à un rappel du collège qu'à un vrai 
+cours construit à partir de zéro. Comme notre cours s'appuie sur ces notions du 
+collège, plusieurs théorèmes et propriétés seront admis sous forme de rappels, 
+parfois avec une courte preuve.
+
+Pour ce cours en particulier, il vaut mieux le lire en entier avant de commencer 
+les exercices, car les notions sont très liées entre elles. C'est pour cela que 
+je laisse plusieurs preuves pour les exercices, plus loin. En lisant, considérez-les
+comme admises : elles sont d'ailleurs assez intuitives.
+
+Ce cours n'est pas comme les autres cours du lycée : il part des principes de 
+base et repose beaucoup sur les preuves. Mais je vous accompagne pas à pas 
+pour vous aider à entrer dans le beau monde des preuves.
+
+Vous connaissez déjà la différence entre une constante et une variable. La variable
+est la première étape vers l'abstraction mathématique : au lieu de travailler avec
+un seul nombre fixé, on utilise un symbole (par exemple $a$, $b$, $\alpha$, 
+$\lambda$) qui peut représenter n'importe quel nombre d'un ensemble donné.
+
+Par exemple, $\sqrt{2}$, $\pi$ et $5$ sont des constantes. Au contraire, un entier 
+impair s'écrit $2k + 1$ avec $k \in \mathbb{N}$ : ici, $k$ est une variable. 
+Quand on écrit «~Soit $a \in \mathbb{N}$~», $a$ est un entier quelconque, mais 
+fixé le temps du raisonnement.
+
+Bientôt, nous allons démontrer des propriétés. Vérifier une propriété pour une 
+valeur précise (e.g., $x = 3$) ne la démontre pas en général. Pour démontrer 
+qu'elle est toujours vraie, il faut raisonner avec la variable, pour que cela 
+marche pour \textit{toutes} les valeurs possibles.
+
+À l'inverse, pour montrer qu'une propriété est fausse, un seul cas suffit. 
+Un cas où la propriété ne marche pas s'appelle un contre-exemple. 
+Un seul contre-exemple réfute toute la propriété, même si elle marche pour des 
+milliers d'autres valeurs. Par exemple, la propriété «~tout entier divisible par 
+$3$ est impair~» est vraie pour $3$, $9$ et $15$, mais elle est fausse pour $6$, 
+car $6$ est divisible par $3$ et il est pair. Le nombre $6$ est donc un 
+contre-exemple, et il suffit pour réfuter la propriété.
 
 \newpage
 % \texorpdfstring{}{} is cool for pdf bookmarks
@@ -225,24 +264,6 @@ convient, donc le résultat n'est pas unique.
   Ici, le nombre $q$ de la Définition~\ref{def:division} vaut $3$.
 \end{example}
 
-\begin{remark}
-  Pour deux affirmations $A$ et $B$, la notation
-  $A \Longleftrightarrow B$ signifie que $A$ entraîne $B$ et que $B$
-  entraîne $A$. Autrement dit, $A \implies B$ et $B \implies A$ sont
-  toutes les deux vraies. Le symbole $\Longleftrightarrow$ et
-  l'expression «~si et seulement si~» ont le même sens. Par exemple,
-  «~$10$ divise $a$~» signifie que le chiffre des unités de $a$ est
-  $0$, et réciproquement, si le chiffre des unités de $a$ est $0$,
-  alors $10$ divise $a$.
-
-  Attention : pour écrire $A \Longleftrightarrow B$, il faut que les
-  deux implications soient vraies. Par exemple, si $4$ divise $a$,
-  alors $2$ divise $a$. Mais la réciproque est fausse, c'est-à-dire
-  que «~si $2$ divise $a$, alors $4$ divise $a$~» est faux : $6$ est
-  divisible par $2$, mais pas par $4$. On ne peut donc pas écrire
-  «~$4$ divise $a$ $\Longleftrightarrow$ $2$ divise $a$~».
-\end{remark}
-
 On peut aussi voir la divisibilité avec les fractions : pour
 $a \in \mathbb{N}$ et $b \in \mathbb{N}^*$, $b$ divise $a$ si et
 seulement si $\frac{a}{b} \in \mathbb{N}$. Quand $b$ ne divise pas $a$,
@@ -288,11 +309,29 @@ Figure~\ref{fig:division_euclidienne} ci-dessous.
 
 \begin{figure}[htbp]
     \centering
-    \includestandalone[width=0.8\textwidth]{figures/division_euclidienne}
+    \includestandalone[width=0.73\textwidth]{figures/division_euclidienne}
 
     \caption{Division euclidienne de $14$ par $4$.}
     \label{fig:division_euclidienne}
 \end{figure}
+
+\begin{remark}
+  Pour deux affirmations $A$ et $B$, la notation
+  $A \Longleftrightarrow B$ signifie que $A$ entraîne $B$ et que $B$
+  entraîne $A$. Autrement dit, $A \implies B$ et $B \implies A$ sont
+  toutes les deux vraies. Le symbole $\Longleftrightarrow$ et
+  l'expression «~si et seulement si~» ont le même sens. Par exemple,
+  «~$10$ divise $a$~» signifie que le chiffre des unités de $a$ est
+  $0$, et réciproquement, si le chiffre des unités de $a$ est $0$,
+  alors $10$ divise $a$.
+
+  Attention : pour écrire $A \Longleftrightarrow B$, il faut que les
+  deux implications soient vraies. Par exemple, si $4$ divise $a$,
+  alors $2$ divise $a$. Mais la réciproque est fausse, c'est-à-dire
+  que «~si $2$ divise $a$, alors $4$ divise $a$~» est faux : $6$ est
+  divisible par $2$, mais pas par $4$. On ne peut donc pas écrire
+  «~$4$ divise $a$ $\Longleftrightarrow$ $2$ divise $a$~».
+\end{remark}
 
 Dans la formule de la division euclidienne, le cas $r = 0$ donne
 $a = bq$, qui est exactement la condition de la
@@ -325,26 +364,6 @@ Définition~\ref{def:division}. D'où la propriété suivante.
   Évidemment, tout entier naturel est soit pair, soit impair.
 \end{example}
 
-\begin{remark}
-  Vous connaissez déjà la différence entre une constante et une
-  variable. La variable est la première étape vers l'abstraction
-  mathématique : au lieu de travailler avec un seul nombre fixé, on
-  utilise un symbole (par exemple $a$, $b$, $\alpha$, $\lambda$) qui
-  peut représenter n'importe quel nombre d'un ensemble donné.
-
-  Par exemple, $\sqrt{2}$, $\pi$ et $5$ sont des constantes. Au
-  contraire, un entier impair s'écrit $2k + 1$ avec $k \in \mathbb{N}$ :
-  ici, $k$ est une variable. Quand on écrit «~Soit
-  $a \in \mathbb{N}$~», $a$ est un entier quelconque, mais fixé le
-  temps du raisonnement.
-
-  Bientôt, nous allons démontrer des propriétés. Vérifier une propriété
-  pour une valeur précise (e.g., $x = 3$) ne la démontre pas en
-  général. Pour démontrer qu'elle est toujours vraie, il faut raisonner
-  avec la variable, pour que cela marche pour \textit{toutes} les
-  valeurs possibles.
-\end{remark}
-
 Passons maintenant aux critères de divisibilité. D'abord, nous
 admettons que tout entier naturel non nul $a$ de $n$ chiffres s'écrit
 sous la forme
@@ -374,25 +393,29 @@ décimale positionnelle que nous utilisons pour écrire les nombres.
 
 \begin{tcolorbox}[graybar]
 \begin{property}
+  \label{prop:div_rules}%
   Soit $a$ un entier naturel non nul dont l'écriture décimale est
   $a_n \cdots a_2a_1$, où $a_1$ est le chiffre des unités, $a_2$ celui
   des dizaines, et ainsi de suite. Si $a$ a moins de chiffres que
   nécessaire, les chiffres manquants valent $0$. On a les critères de
   divisibilité suivants :
-  \begin{enumerate}[label=(\alph*)]
-      \item $2$ divise $a$ si et seulement si
-      $a_1 \in \{0,2,4,6,8\}$.
-      \item $3$ divise $a$ $\Longleftrightarrow$ $3$ divise
-      $a_n + \cdots + a_2 + a_1$.
-      \item $4$ divise $a$ $\Longleftrightarrow$ $4$ divise
-      $a_2a_1$.
-      \item $5$ divise $a$ si et seulement si $a_1 \in \{0,5\}$.
-      \item $8$ divise $a$ $\Longleftrightarrow$ $8$ divise
-      $a_3a_2a_1$.
-      \item $9$ divise $a$ $\Longleftrightarrow$ $9$ divise
-      $a_n + \cdots + a_2 + a_1$.
-  \end{enumerate}
-  \label{prop:div_rules}
+
+  \noindent
+  \begin{minipage}[t]{0.49\linewidth}
+    \begin{enumerate}[label=(\alph*)]
+      \item $2$ divise $a$ $\Longleftrightarrow$ $a_1 \in \{0,2,4,6,8\}$.
+      \item $3$ divise $a$ $\Longleftrightarrow$ $3$ divise $a_n+\cdots+a_2+a_1$.
+      \item $4$ divise $a$ $\Longleftrightarrow$ $4$ divise $a_2a_1$.
+    \end{enumerate}
+  \end{minipage}%
+  \hfill
+  \begin{minipage}[t]{0.49\linewidth}
+    \begin{enumerate}[label=(\alph*),start=4]
+      \item $5$ divise $a$ $\Longleftrightarrow$ $a_1 \in \{0,5\}$.
+      \item $8$ divise $a$ $\Longleftrightarrow$ $8$ divise $a_3a_2a_1$.
+      \item $9$ divise $a$ $\Longleftrightarrow$ $9$ divise $a_n+\cdots+a_2+a_1$.
+    \end{enumerate}
+  \end{minipage}
 \end{property}
 \end{tcolorbox}
 
@@ -814,7 +837,10 @@ fraction $\frac{a'}{b'}$ est donc irréductible.
 \newpage
 \section{Les ensembles de nombres}
 
+
+
 \newpage
+\phantomsection
 \section*{Conclusion}
 \addcontentsline{toc}{section}{Conclusion}
 
