@@ -1,0 +1,320 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{cmbright} % whole document sans-serif, matching sans math
+\usepackage{exscale}
+\usepackage[hidelinks]{hyperref}
+\usepackage{cleveref}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{caption}
+\usepackage{standalone}
+\usetikzlibrary{decorations.pathreplacing}
+\usepackage{xcolor}
+\definecolor{accent}{HTML}{244470} % not exactly navy blue, but better imo
+\usepackage{geometry}
+\geometry{hmargin=2cm,vmargin=2cm}
+\usepackage{enumitem}
+
+\usepackage{titlesec}
+% Style the sections with the navy color
+\titleformat{\section}
+{\color{accent}\Large\bfseries}
+{\thesection.}
+{0.8em}
+{}
+\titleformat{\subsection}
+{\color{accent}\large\bfseries}
+{\thesubsection}
+{0.7em}
+{}
+
+\usepackage[many]{tcolorbox}
+% Create a box that is white, but has a 3pt line on the left
+\tcbset{
+% Use for Theorems and Definitions
+navybar/.style={
+enhanced,
+colback=white,
+colframe=accent,
+boxrule=0.6pt,
+leftrule=3pt,
+arc=0pt,
+outer arc=0pt,
+left=8pt, right=8pt, top=6pt, bottom=6pt
+},
+% Use for properties / less important results
+graybar/.style={
+enhanced,
+colback=white,
+colframe=gray!70,
+boxrule=0.6pt,
+leftrule=3pt,
+arc=0pt,
+outer arc=0pt,
+left=8pt, right=8pt, top=6pt, bottom=6pt
+},
+}
+
+% Theorems and definitions
+\theoremstyle{plain}
+\newtheorem{theorem}{Théorème}[section]
+\newtheorem{property}[theorem]{Propriété}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Définition}
+\newtheorem{example}[theorem]{Exemple}
+
+\newtheorem{exercise}{Exercice}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remarque}
+\newtheorem*{recall}{Rappel}
+
+\begin{document}
+
+\noindent
+\begin{minipage}[c]{0.62\textwidth}
+  {\color{accent}\LARGE\bfseries Généralités sur les fonctions\par}
+  \vspace{0.1cm}
+  {\large 3\textsuperscript{ème} année secondaire\par}
+  \vspace{0.7cm}
+  {\bfseries \href{https://www.linkedin.com/in/kefrov/}{Fares Manai}\par}
+  \vspace{2pt}
+  {\small\href{mailto:kefrov630@gmail.com}{kefrov630@gmail.com}\par}
+\end{minipage}
+\hfill
+\begin{minipage}[c]{0.33\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{fx.pdf}
+\end{minipage}
+\par\vspace{0.4cm}
+\noindent{\color{accent}\rule{\linewidth}{0.9pt}}
+\par\vspace{0.5cm}
+
+\tableofcontents
+
+\newpage
+\phantomsection
+\section*{Introduction}
+\addcontentsline{toc}{section}{Introduction}
+
+\newpage
+\section{Rappels}
+
+\begin{tcolorbox}[navybar]
+  \begin{definition}
+    Given two sets $A$ and $B$, a function from $A$ to $B$ is a rule or mapping
+    that takes each element $x \in A$ and associates with it a single element of $B$.
+    Given an element $x \in A$, the expression $f(x)$ is used to represent the element
+    of $B$ associated with $x$ by $f$. In this case, we write
+    \[
+    \begin{aligned}
+      f : A &\rightarrow B \\
+      x &\mapsto f(x).
+    \end{aligned} 
+    \]    
+    The set $A$ is called the domain of $f$, and $B$ the codomain. The range of $f$ 
+    refers to the set of all possible outputs of $f$ given by 
+    \[
+    f(A) = \{y \in B \mid y = f(x) \text{ for some } x \in A\}. 
+    \]
+  \end{definition}
+\end{tcolorbox}
+
+The first thing we emphasize about functions is that each input has a unique output.
+For example, stating for some $x$ that both $f(x) = 1$ and $f(x) = 2$ hold makes no 
+sense based on the definition of the function. 
+
+Two functions with the same expression
+but different domains are considered different. In other words, a function is defined 
+by its domain and its rule or expression. 
+
+\begin{remark}
+  Be careful not to confuse the function $f$ with its expression $f(x)$. Note also
+  that the range of $f$ is not necessarily its codomain, the range is a subset 
+  of the codomain. 
+\end{remark}
+
+Visualizing functions defined on $\mathbb{R}$ graphically could be very useful durant 
+leur etude. Hence the following definition.
+\begin{tcolorbox}[navybar]
+  \begin{definition}
+    Given a plane $(O, \vec{i}, \vec{j})$, the courbe of a function $f : D_f \rightarrow
+    \mathbb{R}$ is the set of points 
+    \[
+    \{(x, f(x)) \mid x \in D_f\}.
+    \]
+  \end{definition} 
+\end{tcolorbox}
+
+\begin{example}
+  There can't exist a function that to each $x$ associates a $y$ based on the rule
+$y^2 = x$, as that rule associates two values $y$ and $-y$ to each $x$. 
+  In Figure~\ref{fig:inverse_x_sq}, we illustrate the set of points
+$(x,y)$ that satisfy such a rule. Notice from the vertical line with equation
+$x=4$ that two values of $y$, $-2$ and $2$, correspond to $x$.
+  
+  If we were to consider $y$ as the input and $x$ as the output, then it is now
+  possible to define a function, which would simply be $y \mapsto y^2$.
+\end{example}
+
+\begin{example}
+  Consider the functions $f : \mathbb{R}_- \rightarrow \mathbb{R}$ and 
+  $g : \mathbb{R}_+ \rightarrow \mathbb{R}$ such that $f$ and $g$ share the 
+  same expression $x^2$. Figure~\ref{fig:x_sq} makes it apparent that these 
+  functions are not the same through their graphs $C_f$ and $C_g$.
+\end{example}
+
+We will now go over a set of useful functions that will be frequently appearing, 
+starting with the polynomial.
+
+\begin{tcolorbox}[navybar]
+  \begin{definition}
+    A function $p : \mathbb{R} \rightarrow \mathbb{R}$ is said to be a polynomial
+    if its expression for all $x \in \mathbb{R}$ is of the form
+    \[
+    p(x) = a_0 + a_1 x + a_2 x^2 + \cdots + a_m z^m,
+    \] 
+    where $a_0, \dots, a_m \in \mathbb{R}$.
+  \end{definition} 
+\end{tcolorbox}
+
+In the 2eme annee secondaire, we mostly went over polynomials where $m = 2$, these
+polynomials are said to be of second degree.
+
+\noindent
+\begin{minipage}[t]{0.38\linewidth}
+  \vspace{-10pt}
+  \captionsetup{hypcap=false}
+  
+  \begin{minipage}[c][6cm][c]{\linewidth}
+    \centering
+    \includestandalone[width=\linewidth]{figures/inverse_x_sq}
+  \end{minipage}
+  
+  \captionof{figure}{$\{(x,y) \in \mathbb{R}^2 \mid y^2=x\}$.}
+  \label{fig:inverse_x_sq}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.38\linewidth}
+  \vspace{-10pt}
+  \captionsetup{hypcap=false}
+  
+  \begin{minipage}[c][6cm][c]{\linewidth}
+    \centering
+    \includestandalone[width=\linewidth]{figures/x_sq}
+  \end{minipage}
+  
+  \captionof{figure}{$C_f$ et $C_g$.}
+  \label{fig:x_sq}
+\end{minipage}
+\par
+
+\begin{tcolorbox}[navybar]
+  \begin{definition}
+    A polynomial $p : \mathbb{R} \rightarrow \mathbb{R}$ is said to be of degree $m$
+    if for all $x \in \mathbb{R}$ its expression is of the form 
+    \[
+    p(x) = a_0 + a_1 x + a_2 x^2 + \cdots + a_m z^m,
+    \] 
+    where $a_0, \dots, a_m \in \mathbb{R}$ and $a_m \neq 0$.
+  \end{definition} 
+\end{tcolorbox}
+
+We were also particularly interested in the roots of degree $2$ polynomials. 
+
+\begin{tcolorbox}[navybar]
+  \begin{definition}
+    The roots of a polynomial $p$ are the reals $x$ such that $p(x) = 0$.
+  \end{definition} 
+\end{tcolorbox}
+
+\noindent
+\begin{minipage}[t]{0.48\linewidth}
+  \vspace{0pt}
+  \begin{example}
+    Considérons l'équation du second degré
+    \[ 
+      x^2 - 5x + 6 = 0. 
+    \]
+    Graphically, as shown in Figure~\ref{fig:poly_roots}, 
+    the roots are $2$ and $3$, which you can also easily verify by calculating $p(2)$
+    and $p(3)$. 
+    
+    One question arises however, how can we \textit{reliably} find the roots?
+    i.e., without resorting to the courbe of $p$.
+  \end{example}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.48\linewidth}
+  \vspace{0pt}
+  \captionsetup{hypcap=false}
+  
+  \begin{minipage}[c][6cm][c]{\linewidth}
+    \centering
+    \includestandalone[width=\linewidth]{figures/poly_roots}
+  \end{minipage}
+  
+  \captionof{figure}{Roots of $x^2 - 5x + 6$.}
+  \label{fig:poly_roots}
+\end{minipage}
+\par
+
+Consider the equation \(ax^2 + bx + c = 0\) where \(a \neq 0\). Graphically, we see that
+this equation could have either 0, 1 or 2 solutions, which would be the roots of
+the polynomial \(ax^2 + bx + c\). So a natural question arises: under what conditions
+do we have each of these cases, and what are the forms of such roots?
+
+Notice that there are two terms containing \(x\), being \(ax^2\) and \(bx\). The algebraic
+intuition here is to possibly reformulate the expression so that there is only 
+one instance of \(x\) instead of two. Observe the following remarkable product
+\[
+(x + A)^2 = x^2 + A^2 + 2Ax.
+\]
+The expression on the left has only one instance of \(x\), whereas on the right we have two.
+Trying to exploit this for our equation yields
+\[
+\begin{aligned}
+  x^2 + \frac{b}{a}x + \frac{c}{a} &= 0 \quad \text{(dividing by } a \neq 0 \text{)} \\
+  x^2 + 2\left(\frac{b}{2a}\right)x + \frac{c}{a} &= 0 \quad \text{(rewriting the middle term)} \\
+  x^2 + 2\left(\frac{b}{2a}\right)x + \left(\frac{b}{2a}\right)^2 - \left(\frac{b}{2a}\right)^2 + \frac{c}{a} &= 0 \quad \text{(adding and subtracting the square)} \\
+  \left(x + \frac{b}{2a}\right)^2 - \frac{b^2}{4a^2} + \frac{c}{a} &= 0 \quad \text{(factoring the perfect square)} \\
+  \left(x + \frac{b}{2a}\right)^2 - \frac{b^2 - 4ac}{4a^2} &= 0 \quad \text{(finding a common denominator)} \\
+  \left(x + \frac{b}{2a}\right)^2 &= \frac{b^2 - 4ac}{4a^2}
+\end{aligned}
+\]
+
+We now have exactly what we wanted: a single instance of \(x\) on the left side. 
+The term \(b^2 - 4ac\) is so important that we give it a special name: the discriminant, denoted by \(\Delta\).
+\[
+\left(x + \frac{b}{2a}\right)^2 = \frac{\Delta}{4a^2}
+\]
+
+Because the left side is a square, it must be non-negative. Since the denominator \(4a^2\) is strictly positive, the number of real solutions depends entirely on the sign of \(\Delta\). Hence we get the following 3 cases:
+
+\begin{itemize}
+  \item If \(\Delta < 0\): The right side is negative. Since a square cannot be negative, there are 0 solutions.
+  \item If \(\Delta = 0\): The right side is zero. Thus \(x + \frac{b}{2a} = 0\), yielding exactly 1 solution (a double root): 
+  \[
+  x = -\frac{b}{2a}
+  \]
+  \item If \(\Delta > 0\): We can take the square root of both sides, yielding 2 solutions:
+  \[
+  x + \frac{b}{2a} = \pm \frac{\sqrt{\Delta}}{2a}
+  \]
+  Subtracting \(\frac{b}{2a}\) from both sides gives the famous quadratic formula:
+  \[
+  x = \frac{-b \pm \sqrt{\Delta}}{2a}
+  \]
+\end{itemize}
+
+You could now go back and verify this formula in the previous example.
+
+\newpage
+\phantomsection
+\section*{Conclusion}
+\addcontentsline{toc}{section}{Conclusion}
+
+\end{document}

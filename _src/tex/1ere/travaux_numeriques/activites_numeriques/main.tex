@@ -837,7 +837,73 @@ fraction $\frac{a'}{b'}$ est donc irréductible.
 \newpage
 \section{Les ensembles de nombres}
 
+In this section, we will explore different sets of numbers, such as $\mathbb{D}$, 
+$\mathbb{Q}$, and $\mathbb{R}$, and understand why each of them is needed and how
+they are related.
 
+Natural numbers cannot express quantites such as the loss of 3 dinars, or 
+temperatures below 0 celcius. This motivates the introduction of negative
+integers. Thus we define $Z$ to be the union of N and the negative integers 
+\[
+  \mathbb{Z} = \mathbb{N} \cup \{-n \mid n \in \mathbb{N}\}.
+\]
+
+\begin{recall}
+Pour tous réels non nuls \(a\) et \(b\) et tous entiers \(m\) et \(n\), on a
+\begin{itemize}
+  \item \(a^m \times a^n = a^{m+n}\).
+  \item \(((a)^m)^n = a^{mn}\).
+  \item \(\dfrac{a^m}{a^n} = a^{m-n}\).
+  \item \(\left(\dfrac{1}{a}\right)^n = a^{-n}\).
+  \item \((a \times b)^n = a^n \times b^n\).
+  \item \(\left(\dfrac{a}{b}\right)^n = \dfrac{a^n}{b^n}\).
+\end{itemize}
+\end{recall}
+
+We may also want to describe numbers that are not whole, like a half or a fourth
+of something. We included some examples like -2.4321, 0.5 and 1.75 on the number
+line below :
+
+\begin{figure}[htbp]
+    \centering
+    \includestandalone[width=0.73\textwidth]{figures/decimals_example}
+\end{figure}
+
+Thus we define the set of the decimals to be
+\[
+  \mathbb{D} = \{a \times 10^n \mid a, n \in \mathbb{Z}\}.
+\]
+
+In fact, we have $0.5 = 5 \times 10^{-1}$, $1.75 = 175 \times 10^{-2}$, and 
+$-2.4321 = -24321 \times 10^{-4}$.
+
+\begin{remark}
+  Notice how when we fix $n = 0$, $\mathbb{D}$ simply becomes the integers. And thus,
+  $\mathbb{Z} \subset \mathbb{D}$.
+\end{remark}
+
+Our main objective in this section is to describe the set of numbers that are on the
+number line presented just above, i.e., the real numbers. The question at hand now 
+is do the decimals contain all of these numbers? Consider the number 1/3,
+obviously it does exist on the number line ; it is two thirds away from 1
+and a third away from 0. The issue is that its decimal representation is infinite
+\[
+\frac{1}{3} = 0.333333 \dots
+\]
+and that makes it impossible to write it in the decimal form as we just did with 
+the other examples.
+
+Thus, we introduce a new set called the rational numbers that can describe the
+
+When I introduced a recall to power rules, the exponents $n$ and $m$ were entiers
+relatifs. In reality they could also be taken as real numbers, as long as
+whatever quantity we are exponentiating is strictly positive.
+
+Thus, we can think of taking the square root as taking the 0.5 power,
+i.e., $\sqrt{x} = x^{\frac{1}{2}}$ for $x > 0$, as
+\[
+  x^{\frac{1}{2}} \cdot x^{\frac{1}{2}} = x^{\frac{1}{2} + \frac{1}{2}} = x.
+\]
 
 \newpage
 \phantomsection
