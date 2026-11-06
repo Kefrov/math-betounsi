@@ -3,8 +3,9 @@
 *.psb
 *.tmp
 
-## Only include final pdf (I always use the file name main.tex)
+## Only include final pdf
 main.pdf
+**/figures/*.pdf
 
 ## Core latex/pdflatex auxiliary files:
 *.aux

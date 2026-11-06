@@ -9,11 +9,11 @@
 
   % Curve y = x^2 - 5x + 6
   \draw[black, thick, variable=\t, domain=0:5, samples=120]
-    plot ({\t}, {\t*\t - 5*\t + 6}) node[above right] {\(C_f\)};
+    plot ({\t}, {\t*\t - 5*\t + 6}) node[above right] {\(C_p\)};
 
   % Roots (points at the solutions)
-  \fill[red] (2,0) circle (2.5pt) node[below left] {\(x_1=2\)};
-  \fill[red] (3,0) circle (2.5pt) node[below right] {\(x_2=3\)};
+  \fill[red] (2,0) circle (2pt) node[below left] {\(x_1=2\)};
+  \fill[red] (3,0) circle (2pt) node[below right] {\(x_2=3\)};
 
 \end{tikzpicture}
 \end{document}
