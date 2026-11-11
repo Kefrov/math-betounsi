@@ -11,7 +11,6 @@
 \usepackage{graphicx}
 \usepackage{tikz}
 \usepackage{caption}
-\usepackage{standalone}
 \usetikzlibrary{decorations.pathreplacing}
 \usepackage{tkz-tab}
 \usepackage{xcolor}
@@ -166,6 +165,7 @@ faire un dessin, et cela est très utile pour l'étudier. D'où la définition s
 \end{example}
 
 \begin{example}
+  \label{eg:f_et_g} %
   Considérons les fonctions $f : \mathbb{R}_- \rightarrow \mathbb{R}$ et
   $g : \mathbb{R}_+ \rightarrow \mathbb{R}$ qui ont la même expression $x^2$.
   La Figure~\ref{fig:x_sq} montre que ces fonctions ne sont pas les mêmes, avec
@@ -176,19 +176,46 @@ faire un dessin, et cela est très utile pour l'étudier. D'où la définition s
   \centering
   \begin{minipage}[t]{0.43\linewidth}
     \centering
-    \includestandalone[width=\linewidth]{figures/inverse_x_sq}
+    \begin{tikzpicture}[x=0.85cm,y=0.85cm, thick]
+      \draw[->] (-0.5,0) -- (6.5,0) node[right] {$x$};
+      \draw[->] (0,-3) -- (0,3) node[above] {$y$};
+
+      \draw[red, thick, variable=\t, domain=-2.5:2.5, samples=120]
+        plot ({\t*\t}, {\t});
+
+      \draw[black] (4,-3) -- (4,3);
+
+      \fill[black] (4,2)  circle (2pt);
+      \fill[black] (4,-2) circle (2pt);
+
+      \node[below right, font=\scriptsize] at (4,2)  {$(4,2)$};
+      \node[above right, font=\scriptsize] at (4,-2) {$(4,-2)$};
+    \end{tikzpicture}
     \caption{$\{(x,y) \in \mathbb{R}^2 \mid y^2=x\}$.}
     \label{fig:inverse_x_sq}
   \end{minipage}\hfill
   \begin{minipage}[t]{0.42\linewidth}
     \centering
-    \includestandalone[width=\linewidth]{figures/x_sq}
+    \begin{tikzpicture}[x=1cm,y=1cm, thick]
+      \draw[->] (-3,0) -- (3,0) node[right] {};
+      \draw[->] (0,-0.5) -- (0,5) node[above] {};
+
+      \draw[green!60!black, thick, variable=\t, domain=-2.2:0, samples=120]
+        plot ({\t}, {\t*\t});
+
+      \draw[red, thick, variable=\t, domain=0:2.2, samples=120]
+        plot ({\t}, {\t*\t});
+
+      \node[green!60!black, below left] at (-1.5,2.25) {$C_f$};
+      \node[red, below right] at (1.5,2.25) {$C_g$};
+    \end{tikzpicture}
     \caption{$C_f$ et $C_g$.}
     \label{fig:x_sq}
   \end{minipage}
 \end{figure}
 
 \subsection{Valeur absolue}
+\label{ss:valeur_absolue}
 
 Rappelons maintenant un opérateur très important, la valeur absolue, notée
 $| \cdot |$. Elle est définie pour tout réel $x$ par :
@@ -205,7 +232,20 @@ Par exemple, $\lvert 3 \rvert = 3$ et $\lvert -3 \rvert = 3$. On peut aussi
 la voir comme la \textit{distance} entre $x$ et $0$.
 
 \begin{center}
-  \includestandalone[width=0.6\linewidth]{figures/abs_example}
+  \begin{tikzpicture}[x=1cm, y=1cm]
+    \draw[->, thick] (-4.5,0) -- (3,0) node[right] {\(x\)};
+
+    \draw[thick] (0,0.1) -- (0,-0.1);
+
+    \node[below, font=\normalsize] at (-3,-0.1) {\(-3\)};
+    \node[below, font=\normalsize] at (0,-0.1) {\(0\)};
+
+    \fill (-3,0) circle (2pt);
+
+    \draw[decorate, decoration={brace, amplitude=10pt}, thick]
+      (-3, 0.2) -- (0, 0.2)
+      node[midway, above=12pt] {\large $\lvert -3 \rvert = 3$};
+  \end{tikzpicture}
 \end{center}
 
 \begin{remark}
@@ -235,7 +275,16 @@ la même distance. En effet, ils sont égaux d'après la
 Propriété~\ref{prop:abs_opposite}, car $b - a = -(a - b)$.
 
 \begin{center}
-  \includestandalone[width=0.6\linewidth]{figures/abs_dis}
+  \begin{tikzpicture}[x=1cm, y=1cm]
+    \draw[->, thick] (-4.5,0) -- (3,0) node[right] {\(x\)};
+
+    \fill (-3,0) circle (2pt);
+    \fill (1.5,0) circle (2pt);
+
+    \draw[decorate, decoration={brace, amplitude=10pt}, thick]
+      (-3, 0.2) -- (1.5, 0.2)
+      node[midway, above=12pt] {\large $\lvert a - b \rvert$};
+  \end{tikzpicture}
 \end{center}
 
 \begin{remark}
@@ -299,7 +348,23 @@ notre intuition : on place les points $r$ et $-r$, on choisit plusieurs valeurs
 de $x$, on regarde où tombe leur valeur absolue, puis on généralise.
 
 \begin{center}
-  \includestandalone[width=0.78\linewidth]{figures/abs_ineq}
+  \begin{tikzpicture}[x=1cm, y=1cm]
+    \draw[->, thick] (-5,0) -- (5,0) node[right] {\(x\)};
+    \draw[thick] (0,0.1) -- (0,-0.1);
+    \draw[thick] (-4.25,0.1) -- (-4.25,-0.1);
+    \draw[thick] (4.25,0.1) -- (4.25,-0.1);
+
+    \fill (-1.5,0) circle (2pt);
+    \fill (1.5,0) circle (2pt);
+    \fill (3.25,0) circle (2pt);
+
+    \node[below, font=\normalsize] at (-4.25,-0.1) {\(-r\)};
+    \node[below, font=\normalsize] at (-1.5,-0.1) {\(x_1\)};
+    \node[below, font=\normalsize] at (0,-0.1) {\(0\)};
+    \node[below, font=\normalsize] at (1.5,-0.1) {\(\lvert x_1 \rvert\)};
+    \node[above, font=\normalsize] at (3.25,0.1) {\(x_2 = \lvert x_2 \rvert\)};
+    \node[below, font=\normalsize] at (4.25,-0.1) {\(r\)};
+  \end{tikzpicture}
 \end{center}
 
 \begin{tcolorbox}[graybar]
@@ -344,7 +409,16 @@ avec la fonction identité $x \mapsto x$.
 
 \begin{figure}[ht]
   \centering
-  \includestandalone[width=0.43\linewidth]{figures/abs_func}
+  \begin{tikzpicture}[x=1cm, y=1cm, thick]
+    \draw[->] (-3,0) -- (3,0) node[right] {\(x\)};
+    \draw[->] (0,-3) -- (0,3) node[above] {\(y\)};
+
+    \draw[gray, thick, domain=-2.5:2.5] plot (\x, \x);
+    \node[gray, above left] at (-2, -2) {\(C_x\)};
+
+    \draw[black, thick] (-2.5, 2.5) -- (0,0) -- (2.5, 2.5);
+    \node[black, below left] at (-2, 2) {\(C_{\lvert x \rvert}\)};
+  \end{tikzpicture}
   \caption{Les courbes de $x \mapsto x$ et $x \mapsto \lvert x \rvert$.}
   \label{fig:abs_func}
 \end{figure}
@@ -425,7 +499,13 @@ de la Figure~\ref{fig:inverse_x_sq}.
 
 \begin{figure}[ht]
   \centering
-  \includestandalone[width=0.53\linewidth]{figures/sq_func}
+  \begin{tikzpicture}[x=1cm, y=1cm, thick]
+    \draw[->] (-0.5,0) -- (7,0) node[right] {\(x\)};
+    \draw[->] (0,-0.5) -- (0,3) node[above] {\(y\)};
+
+    \draw[black, thick, domain=0:6.5, samples=100] plot (\x, {sqrt(\x)});
+    \node[black, above left] at (5, 2.3) {\(C_{\sqrt{x}}\)};
+  \end{tikzpicture}
   \caption{Courbe de $x \mapsto \sqrt{x}$.}
   \label{fig:sq_func}
 \end{figure}
@@ -491,7 +571,16 @@ On s'est aussi beaucoup intéressé aux racines des polynômes de degré $2$.
 
   \begin{minipage}[c][6cm][c]{\linewidth}
     \centering
-    \includestandalone[width=\linewidth]{figures/poly_roots}
+    \begin{tikzpicture}[x=1cm, y=0.8cm, thick]
+      \draw[->] (-0.5,0) -- (5.2,0) node[right] {\(x\)};
+      \draw[->] (0,-1) -- (0,6.5) node[above] {\(y\)};
+
+      \draw[black, thick, variable=\t, domain=0:5, samples=120]
+        plot ({\t}, {\t*\t - 5*\t + 6}) node[above right] {\(C_p\)};
+
+      \fill[red] (2,0) circle (2pt) node[below left] {\(x_1=2\)};
+      \fill[red] (3,0) circle (2pt) node[below right] {\(x_2=3\)};
+    \end{tikzpicture}
   \end{minipage}
 
   \captionof{figure}{Racines de $x^2 - 5x + 6$.}
@@ -709,6 +798,7 @@ n'est définie que pour les $x$ où le polynôme $q$ ne s'annule pas. Autrement 
 \end{remark}
 
 \begin{example}
+  \label{eg:one_over_x} %
   Considérons $x \mapsto 1/x$. C'est la première fonction rationnelle que l'on
   étudie, et sans doute la plus importante et la plus utile. Son ensemble de
   définition est $\mathbb{R}^*$, car $x \neq 0$. Voir la
@@ -729,6 +819,7 @@ n'est définie que pour les $x$ où le polynôme $q$ ne s'annule pas. Autrement 
 \end{example}
 
 \begin{example}
+  \label{eg:odd_rational} %
   Considérons la fonction $g(x) = \frac{x^2 + 1}{x}$. Son ensemble de définition
   est $D_g = \mathbb{R} \setminus \{0\}$. On peut réécrire l'expression :
   \[
@@ -744,22 +835,612 @@ n'est définie que pour les $x$ où le polynôme $q$ ne s'annule pas. Autrement 
   \centering
   \begin{minipage}[t]{0.42\linewidth}
     \centering
-    \includestandalone[width=\linewidth]{figures/rational_func1}
+    \begin{tikzpicture}[x=0.8cm, y=0.8cm, thick]
+      \draw[->] (-4,0) -- (4,0) node[right] {\(x\)};
+      \draw[->] (0,-4) -- (0,4) node[above] {\(y\)};
+
+      \draw[black, thick, domain=-3.8:-0.25, samples=100] plot (\x, {1/\x});
+      \draw[black, thick, domain=0.25:3.8, samples=100] plot (\x, {1/\x});
+    \end{tikzpicture}
     \caption{Courbe de $x \mapsto 1/x$.}
     \label{fig:rational_func1}
   \end{minipage}\hfill
   \begin{minipage}[t]{0.42\linewidth}
     \centering
-    \includestandalone[width=\linewidth]{figures/rational_func2}
+    \begin{tikzpicture}[x=0.8cm, y=0.8cm, thick]
+      \draw[->] (-4,0) -- (4,0) node[right] {\(x\)};
+      \draw[->] (0,-4) -- (0,4) node[above] {\(y\)};
+
+      \draw[gray, thick, domain=-3.5:3.5] plot (\x, \x);
+      \node[gray, above left] at (-2.5, -2.5) {\(C_x\)};
+
+      \draw[black, thick, domain=-3.5:-0.28, samples=100] plot (\x, {\x + 1/\x});
+      \draw[black, thick, domain=0.28:3.5, samples=100] plot (\x, {\x + 1/\x});
+
+      \node[black, above right] at (1.6, 2.8) {\(C_g\)};
+    \end{tikzpicture}
     \caption{Courbe de $x \mapsto x + \frac{1}{x}$.}
     \label{fig:rational_func2}
   \end{minipage}
 \end{figure}
 
+\section{Translations de courbes}
+
+Dans cette section, on apprend à déplacer une courbe sans changer sa forme, et à
+trouver l'expression de la fonction qui correspond à la nouvelle courbe. Rappelons
+que la translation de vecteur $(a, b)$ envoie chaque point $(x, y)$ sur le point
+$(x + a, y + b)$.
+
+Commençons par une fonction simple avec un beau graphe, $f : x \mapsto x^3$.
+Soit $g$ la fonction dont la courbe est celle de $f$, mais translatée verticalement
+par le vecteur $(0, b)$, pour un certain réel $b$. On veut trouver l'expression de
+$g$ à l'aide de $f(x)$. Par exemple, avec $b = 3$, le point $(2, 8)$ de $C_f$
+devient le point $(2, 11)$ de $C_g$.
+
+\begin{center}
+\begin{tikzpicture}[x=1cm, y=0.4cm, thick]
+  \draw[->] (-2.5,0) -- (2.5,0) node[right] {\(x\)};
+  \draw[->] (0,-4) -- (0,13) node[above] {\(y\)};
+
+  \draw[blue!80!black, domain=-1.55:2.05, samples=100] plot (\x, {\x*\x*\x});
+  \node[blue!80!black, right] at (-1.5, -3.375) {\(C_f\)};
+  
+  \draw[red!80!black, domain=-1.8:2.05, samples=100] plot (\x, {\x*\x*\x + 3});
+  \node[red!80!black, above left] at (-1.5, 0) {\(C_g\)};
+
+  \fill (2, 8) circle (2pt) node[below right] {\(A(2, 8)\)};
+  \fill (2, 11) circle (2pt) node[above right] {\(B(2, 11)\)};
+
+  \draw (1,0.2) -- (1,-0.2) node[below] {\(1\)};
+  \draw (2,0.2) -- (2,-0.2) node[below] {\(2\)};
+  \draw (-1,0.2) -- (-1,-0.2) node[below] {\(-1\)};
+  \draw (-2,0.2) -- (-2,-0.2) node[below] {\(-2\)};
+
+  \draw[->, dashed, gray, thick] (2, 8) -- (2, 11) node[midway, right] {\(\vec{v}(0, 3)\)};
+\end{tikzpicture}
+\end{center}
+
+Remarquons que, pour n'importe quelle entrée $x$, la translation envoie le point
+$(x, f(x))$ sur le point $(x, f(x) + b)$. La différence entre $g(x)$ et $f(x)$ est
+donc toujours $b$, i.e., $g(x) - f(x) = b$, et donc $g(x) = f(x) + b$.
+
+On fait maintenant la même chose horizontalement, avec le vecteur $(a, 0)$ pour un
+certain réel $a$. On note $h$ la nouvelle fonction, à la place de $g$. Par exemple,
+avec $a = 2$, le point $(1, 1)$ de $C_f$ devient le point $(3, 1)$ de $C_h$, donc
+$h(3) = 1 = f(3 - 2)$.
+
+\begin{center}
+  \framebox[0.6\linewidth]{\rule{0pt}{4cm}}
+\end{center}
+
+Quand on a translaté verticalement, il suffisait d'ajouter un réel à $f(x)$, car
+$g(x)$ est la valeur de $y$, et ce sont les ordonnées qu'on déplace. Cette fois, ce
+sont les abscisses qui sont déplacées. Il faut donc raisonner sur l'entrée de $f$.
+Le point $(x_0, f(x_0))$ de $C_f$ devient le point $(x_0 + a, f(x_0))$ de $C_h$,
+donc $h(x_0 + a) = f(x_0)$. En posant $x = x_0 + a$, on obtient $h(x) = f(x - a)$.
+Autrement dit, la valeur de $h$ en $x$ est celle que $f$ avait en $x - a$ : c'est
+comme si $h$ avait un retard de $a$ sur $f$.
+
+\begin{remark}
+  Attention au signe : pour déplacer la courbe vers la droite de $a > 0$, on écrit
+  $f(x - a)$ et non $f(x + a)$.
+\end{remark}
+
+En combinant nos deux résultats, on conclut que la fonction $x \mapsto f(x - a) + b$
+a pour courbe la translatée de $C_f$ par le vecteur $(a, b)$. Autrement dit,
+\[
+  \{(x, f(x - a) + b) \mid x - a \in D_f\} = \{z + (a, b) \mid z \in C_f\}.
+\]
+Notez que l'ensemble de définition change aussi : c'est l'ensemble des réels $x$ tels
+que $x - a \in D_f$, i.e., $D_f$ lui-même translaté de $a$.
+
+\begin{example}
+  Considérons $f : x \mapsto \sqrt{x}$, définie sur $\mathbb{R}_+$, et translatons sa
+  courbe par le vecteur $(-1, 2)$. Ici $a = -1$ et $b = 2$, donc la nouvelle fonction est
+  \[
+    g(x) = f(x + 1) + 2 = \sqrt{x + 1} + 2.
+  \]
+  Son ensemble de définition est $[-1, +\infty[$, car $x + 1 \ge 0$ si et seulement
+  si $x \ge -1$. Il a donc changé : il était $[0, +\infty[$. On vérifie que le point
+  $(0, 0)$ de $C_f$ devient bien le point $(-1, 2)$, car $g(-1) = \sqrt{0} + 2 = 2$.
+  Voir la Figure~\ref{fig:translation_sqrt}.
+\end{example}
+
+\begin{example}
+  Considérons $f : x \mapsto x^2$. Translatons sa parabole verticalement par le
+  vecteur $(0, -1)$, puis par le vecteur $(0, 1)$. D'après ce qui précède, on obtient les
+  courbes de $x \mapsto x^2 - 1$ et de $x \mapsto x^2 + 1$. Sur la
+  Figure~\ref{fig:translation_parabole}, on voit que la parabole translatée vers le bas
+  coupe l'axe des abscisses en deux points, $-1$ et $1$. La parabole de $f$ le touche
+  en un seul point, $0$. La parabole translatée vers le haut ne le touche pas. Ainsi,
+  translater la courbe change le nombre de racines.
+
+  À vous de jouer : vérifiez ce nombre de solutions en calculant le discriminant.
+  Indice : pour $x^2 - 1$, on a $a = 1$, $b = 0$ et $c = -1$.
+\end{example}
+
+\begin{figure}[htbp]
+  \centering
+  \begin{minipage}[t]{0.43\linewidth}
+    \centering
+    \framebox[\linewidth]{\rule{0pt}{4cm}}
+    \caption{Les courbes de $x \mapsto \sqrt{x}$ et de sa translatée par le vecteur
+    $(-1, 2)$.}
+    \label{fig:translation_sqrt}
+  \end{minipage}\hfill
+  \begin{minipage}[t]{0.42\linewidth}
+    \centering
+    \framebox[\linewidth]{\rule{0pt}{4cm}}
+    \caption{Les courbes de $x \mapsto x^2 - 1$, $x \mapsto x^2$ et $x \mapsto x^2 + 1$.}
+    \label{fig:translation_parabole}
+  \end{minipage}
+\end{figure}
+
+\section{Sens de variation}
+
+Intuitivement, une fonction est croissante sur un intervalle si sa courbe monte
+quand on la lit de gauche à droite. Voici la définition précise. Dans toute cette
+section, $I$ désigne un intervalle.
+
+\begin{tcolorbox}[navybar]
+  \begin{definition}
+    Soit $f$ une fonction définie sur un intervalle $I$.
+    \begin{enumerate}[label=(\roman*)]
+      \item\label{def:croissante} La fonction $f$ est croissante sur $I$ si pour tous
+      réels $a$ et $b$ de $I$ tels que $a \le b$, on a $f(a) \le f(b)$.
+      \item\label{def:strict_croissante} La fonction $f$ est strictement croissante sur
+      $I$ si pour tous réels $a$ et $b$ de $I$ tels que $a < b$, on a $f(a) < f(b)$.
+      \item\label{def:constante} La fonction $f$ est constante sur $I$ si pour tous
+      réels $a$ et $b$ de $I$, on a $f(a) = f(b)$.
+    \end{enumerate}
+  \end{definition}
+\end{tcolorbox}
+
+\begin{example}
+  La fonction $f : x \mapsto 2x + 1$ est strictement croissante sur $\mathbb{R}$. En
+  effet, soit $a < b$. Alors $2a < 2b$, donc $2a + 1 < 2b + 1$, i.e., $f(a) < f(b)$.
+  Une fonction strictement croissante est aussi croissante : si $a = b$, on a bien
+  $f(a) \le f(b)$, et si $a < b$, c'est ce qu'on vient de voir.
+\end{example}
+
+\begin{example}
+  Soit $g$ la fonction définie sur $\mathbb{R}$ par
+  \[
+    g(x) =
+    \begin{cases}
+      0 & \text{si } x < 0 \\
+      x & \text{si } x \ge 0.
+    \end{cases}
+  \]
+  Elle est croissante sur $\mathbb{R}$. En effet, soit $a \le b$. Si $b < 0$, alors
+  $g(a) = g(b) = 0$. Si $a < 0 \le b$, alors $g(a) = 0 \le b = g(b)$. Si $0 \le a$,
+  alors $g(a) = a \le b = g(b)$.
+
+  Par contre, $g$ n'est pas strictement croissante sur $\mathbb{R}$ : on a $-2 < -1$,
+  mais $g(-2) = g(-1) = 0$, donc $g(-2) < g(-1)$ est faux.
+\end{example}
+
+\begin{figure}[htbp]
+  \centering
+  \begin{minipage}[t]{0.43\linewidth}
+    \centering
+    \framebox[\linewidth]{\rule{0pt}{4cm}}
+    \caption{Courbe de $f : x \mapsto 2x + 1$.}
+    \label{fig:strict_croissante}
+  \end{minipage}\hfill
+  \begin{minipage}[t]{0.42\linewidth}
+    \centering
+    \framebox[\linewidth]{\rule{0pt}{4cm}}
+    \caption{Courbe de $g$.}
+    \label{fig:croissante_non_stricte}
+  \end{minipage}
+\end{figure}
+
+À vous de jouer : écrivez vous-même la définition d'une fonction décroissante sur
+$I$, puis celle d'une fonction strictement décroissante sur $I$.
+
+\begin{example}
+  \label{eg:non_monotone}
+  Considérons $f : x \mapsto \lvert x - 1 \rvert$. Elle est décroissante sur
+  $]-\infty, 1]$ et croissante sur $[1, +\infty[$. En effet, si $a \le b \le 1$, alors
+  $a - 1 \le b - 1 \le 0$, donc $\lvert a - 1 \rvert = 1 - a \ge 1 - b =
+  \lvert b - 1 \rvert$, i.e., $f(a) \ge f(b)$. Si $1 \le a \le b$, alors $a - 1 \ge 0$
+  et $b - 1 \ge 0$, donc $f(a) = a - 1 \le b - 1 = f(b)$.
+
+  Par contre, elle n'est ni croissante ni décroissante sur $\mathbb{R}$ : on a
+  $f(0) = 1$, $f(1) = 0$ et $f(2) = 1$. Comme $0 < 1$ et $f(0) > f(1)$, elle n'est pas
+  croissante. Comme $1 < 2$ et $f(1) < f(2)$, elle n'est pas décroissante.
+\end{example}
+
+\begin{tcolorbox}[navybar]
+  \begin{definition}
+    Une fonction est dite monotone sur un intervalle $I$ lorsqu'elle est croissante
+    sur $I$ ou décroissante sur $I$.
+  \end{definition}
+\end{tcolorbox}
+
+La fonction de l'Exemple~\ref{eg:non_monotone} est donc monotone sur $]-\infty, 1]$ et
+sur $[1, +\infty[$, mais pas sur $\mathbb{R}$. Remarquons aussi qu'une fonction
+constante est à la fois croissante et décroissante, donc monotone.
+
+\begin{remark}
+  Plus tard, on verra un bien meilleur outil pour étudier la monotonie d'une
+  fonction, c'est-à-dire son sens de variation : la dérivée.
+\end{remark}
+
+\noindent
+\begin{minipage}[c]{0.5\linewidth}
+  \begin{example}
+    Reprenons la fonction $f : x \mapsto \lvert x - 1 \rvert$ de
+    l'Exemple~\ref{eg:non_monotone}, et notons $-f$ la fonction
+    $x \mapsto -\lvert x - 1 \rvert$. Sa courbe est la symétrique de $C_f$ par rapport
+    à l'axe des abscisses, comme le montre la Figure~\ref{fig:moins_f}. On voit que
+    $-f$ est croissante sur $]-\infty, 1]$ et décroissante sur $[1, +\infty[$ :
+    c'est l'inverse de $f$.
+  \end{example}
+\end{minipage}\hfill
+\begin{minipage}[c]{0.42\linewidth}
+  \captionsetup{hypcap=false, skip=12pt}
+
+  \begin{minipage}[c][6cm][c]{\linewidth}
+    \centering
+    \framebox[\linewidth]{\rule{0pt}{5cm}}
+  \end{minipage}
+
+  \captionof{figure}{Les courbes de $f$ et de $-f$.}
+  \label{fig:moins_f}
+\end{minipage}
+\par
+\vspace{0.5em}
+
+Ce n'est pas un hasard, et on peut le montrer facilement.
+
+\begin{tcolorbox}[graybar]
+  \begin{property}
+    \label{prop:moins_f}
+    Soit $f$ une fonction définie sur un intervalle $I$. Si $f$ est croissante sur
+    $I$, alors $-f$ est décroissante sur $I$. Si $f$ est décroissante sur $I$, alors
+    $-f$ est croissante sur $I$.
+  \end{property}
+\end{tcolorbox}
+
+\begin{proof}
+  Supposons $f$ croissante sur $I$, et soit $a \le b$ dans $I$. Alors
+  $f(a) \le f(b)$, donc $-f(a) \ge -f(b)$. Ainsi $-f$ est décroissante sur $I$.
+  Le cas où $f$ est décroissante se traite de la même façon, en changeant le sens
+  des inégalités.
+\end{proof}
+
+\section{Fonctions paires et impaires}
+
+\begin{tcolorbox}[navybar]
+  \begin{definition}
+    Soit $f$ une fonction définie sur un ensemble $D$. On dit que $f$ est une
+    fonction paire si pour tout $x \in D$, on a $-x \in D$ et $f(-x) = f(x)$.
+  \end{definition}
+\end{tcolorbox}
+
+La condition « $-x \in D$ » veut dire que $D$ est symétrique par rapport à $0$,
+comme $\mathbb{R}$, $\mathbb{R}^*$ ou $[-3, 3]$. Elle est nécessaire pour que
+$f(-x)$ existe.
+
+La fonction valeur absolue de la Figure~\ref{fig:abs_func} est paire, car elle est
+définie sur $\mathbb{R}$, qui est symétrique, et on a $\lvert -x \rvert = \lvert x
+\rvert$ (Propriété~\ref{prop:abs_opposite}). Un autre exemple simple de fonction
+paire est $x \mapsto x^2$, car $(-x)^2 = x^2$. Vous pouvez deviner sa courbe avec la
+Figure~\ref{fig:x_sq}.
+
+En regardant de plus près ces deux courbes, on voit qu'elles sont symétriques par
+rapport à l'axe des ordonnées. On généralise, et on admet la propriété suivante,
+assez évidente.
+
+\begin{tcolorbox}[graybar]
+  \begin{property}
+    Le plan est muni d'un repère orthogonal $(O, \vec{i}, \vec{j})$. La fonction $f$
+    est paire si et seulement si sa courbe représentative $C_f$ est symétrique par
+    rapport à l'axe des ordonnées $(O, \vec{j})$.
+  \end{property}
+\end{tcolorbox}
+
+\begin{tcolorbox}[navybar]
+  \begin{definition}
+    Soit $f$ une fonction définie sur un ensemble $D$. On dit que $f$ est une
+    fonction impaire si pour tout $x \in D$, on a $-x \in D$ et $f(-x) = -f(x)$.
+  \end{definition}
+\end{tcolorbox}
+
+À vous de jouer : vérifiez que les fonctions des Exemples~\ref{eg:one_over_x}
+et~\ref{eg:odd_rational} sont impaires. Indice : pour chaque fonction $f$, calculez
+$f(-x)$ et comparez avec $-f(x)$.
+
+Comme pour les fonctions paires, on peut admettre la propriété suivante sur les
+courbes des fonctions impaires.
+
+\begin{tcolorbox}[graybar]
+  \begin{property}
+    Le plan est muni d'un repère orthogonal $(O, \vec{i}, \vec{j})$. La fonction $f$
+    est impaire si et seulement si sa courbe représentative $C_f$ est symétrique par
+    rapport à l'origine $O$ du repère.
+  \end{property}
+\end{tcolorbox}
+
+\begin{example}
+  Soit $f : [-1, 2] \rightarrow \mathbb{R}$ définie par $f(x) = x^3$. L'expression
+  $x^3$ vérifie $(-x)^3 = -x^3$ pour tout réel $x$, mais la fonction $f$ n'est pas
+  impaire : on a $2 \in D_f$ et pourtant $-2 \notin D_f$. Elle n'est pas non plus
+  paire, pour la même raison.
+
+  Attention donc : pour savoir si une fonction est paire ou impaire, on regarde
+  d'abord son ensemble de définition, et ensuite son expression. Rappelez-vous
+  qu'une fonction est définie par son ensemble de définition et sa règle.
+\end{example}
+
+Ces deux types de fonctions seront très utiles en analyse : si $f$ est paire ou
+impaire, il suffit de l'étudier pour les $x \ge 0$ de $D_f$, puis de compléter par
+symétrie.
+
+\section{Restriction d'une fonction}
+
+\begin{tcolorbox}[navybar]
+  \begin{definition}
+    Soit $f$ une fonction définie sur un ensemble $D_f$. Soit $D$ une partie de
+    $D_f$. On appelle restriction de la fonction $f$ à $D$ la fonction $g$ définie
+    sur $D$ par
+    \[
+      g(x) = f(x), \quad \text{pour tout } x \in D.
+    \]
+  \end{definition}
+\end{tcolorbox}
+
+Graphiquement, la courbe de $g$ est la partie de $C_f$ formée des points dont
+l'abscisse est dans $D$. Les fonctions $f$ et $g$ de l'Exemple~\ref{eg:f_et_g} sont
+des restrictions de la fonction $x \mapsto x^2$ définie sur $\mathbb{R}$. Autre
+exemple : la fonction $x \mapsto \lvert x - 1 \rvert$ n'est pas monotone sur
+$\mathbb{R}$, mais sa restriction à $[1, +\infty[$ est croissante.
+
+\begin{example}
+  Considérons la fonction $f$ définie sur $\mathbb{R}$ par
+  \[
+    f(x) = 2\lvert x - 2 \rvert - \lvert x + 3 \rvert - x^2.
+  \]
+  Soit $g$ la restriction de $f$ à l'intervalle $[2, +\infty[$. Pour $x \ge 2$, on a
+  $x - 2 \ge 0$ et $x + 3 > 0$, donc $\lvert x - 2 \rvert = x - 2$ et
+  $\lvert x + 3 \rvert = x + 3$. Les valeurs absolues disparaissent, et on obtient
+  \[
+    g(x) = 2(x - 2) - (x + 3) - x^2 = -x^2 + x - 7.
+  \]
+  Vérifions avec $x = 3$ : $f(3) = 2 \cdot 1 - 6 - 9 = -13$ et
+  $g(3) = -9 + 3 - 7 = -13$. La Figure~\ref{fig:restriction} montre la courbe de $g$
+  et celle de $f$.
+\end{example}
+
+\begin{figure}[ht]
+  \centering
+  \framebox[0.7\linewidth]{\rule{0pt}{5cm}}
+  \caption{La courbe de $g$ et celle de $f$.}
+  \label{fig:restriction}
+\end{figure}
+
+\section{Majorant et minorant}
+
+\begin{tcolorbox}[navybar]
+  \begin{definition}
+    Soit $f$ une fonction définie sur un ensemble $D$.
+    \begin{enumerate}[label=(\roman*)]
+      \item\label{def:majoree} La fonction $f$ est dite majorée sur $D$ s'il existe un
+      réel $M$ tel que pour tout $x \in D$, $f(x) \le M$.
+      \item\label{def:minoree} La fonction $f$ est dite minorée sur $D$ s'il existe un
+      réel $m$ tel que pour tout $x \in D$, $m \le f(x)$.
+      \item\label{def:bornee} La fonction $f$ est dite bornée sur $D$ s'il existe deux
+      réels $m$ et $M$ tels que pour tout $x \in D$, $m \le f(x) \le M$.
+    \end{enumerate}
+  \end{definition}
+\end{tcolorbox}
+
+Dans chacun de ces cas, $m$ s'appelle un minorant de $f$ sur $D$ et $M$ s'appelle un
+majorant de $f$ sur $D$. Remarquons que si $M$ est un majorant, alors tout réel
+$M' \ge M$ en est aussi un : il n'y a donc pas un seul majorant.
+
+\begin{example}
+  Considérons $f : x \mapsto x^2$ définie sur $\mathbb{R}$. Son ensemble image est
+  $f(\mathbb{R}) = \mathbb{R}_+$, car un carré est positif, et tout réel $y \ge 0$
+  s'écrit $y = (\sqrt{y})^2$. Pour tout réel $M$, le réel $\lvert M \rvert + 1$ est
+  dans $\mathbb{R}_+$ et il est strictement plus grand que $M$. Donc $f$ n'a aucun
+  majorant : elle n'est pas majorée. Par contre, tout élément de $\mathbb{R}_-$ est
+  un minorant de $f$ : si $m \le 0$, alors $m \le 0 \le x^2$ pour tout $x$. Et aucun
+  $m > 0$ n'est un minorant, car $f(0) = 0 < m$.
+\end{example}
+
+\begin{tcolorbox}[navybar]
+  \begin{definition}
+    Soit $f$ une fonction définie sur un ensemble $D$. S'il existe un réel $x_0$
+    appartenant à $D$ tel que pour tout $x$ de $D$, $f(x) \le f(x_0)$, on dit que la
+    fonction $f$ admet sur $D$ un maximum en $x_0$, ou encore que $f(x_0)$ est un
+    maximum de $f$ sur $D$.
+  \end{definition}
+\end{tcolorbox}
+
+À vous de jouer : écrivez de la même façon la définition du minimum. Indice : il
+suffit de changer le sens de l'inégalité.
+
+Un maximum est un cas particulier de majorant : c'est un majorant qui appartient à
+l'ensemble image de $f$. On a un énoncé similaire pour le minimum. Attention : le
+maximum est la valeur $f(x_0)$, alors que $x_0$ est l'endroit où il est atteint.
+
+\begin{example}
+  Reprenons le polynôme $p$ de l'Exemple~\ref{eg:poly_roots}, $p(x) = x^2 - 5x + 6$.
+  On admet que $p(2.5) = -\frac{1}{4}$ est un minimum de $p$ sur $\mathbb{R}$. C'est
+  assez évident sur la courbe, mais on peut le prouver en étudiant le signe du
+  polynôme $x \mapsto p(x) - p(2.5)$, i.e., $x \mapsto x^2 - 5x + 6.25$.
+  À vous de jouer : faites-le. Indice : calculez son discriminant.
+\end{example}
+
+Au chapitre sur les limites, on verra qu'une fonction peut être bornée sans avoir
+ni minimum ni maximum. Pour le voir, revenez à la Figure~\ref{fig:rational_func1} et
+regardez la restriction de $x \mapsto 1/x$ à $]1, +\infty[$ : la courbe s'approche
+de l'axe des abscisses quand $x$ grandit, sans jamais le toucher, i.e., $f(x)$
+n'atteint jamais $0$. De même, $f(x)$ n'atteint jamais $1$.
+
+\section{Fonctions affines par intervalles}
+
+\begin{recall}
+  Une fonction affine est une fonction de la forme $x \mapsto mx + p$, où $m$ et $p$
+  sont des réels. Le réel $m$ est son coefficient directeur et $p$ est son ordonnée
+  à l'origine. Les fonctions constantes sont affines ($m = 0$). Une fonction définie
+  sur $\mathbb{R}$ est affine si et seulement si sa courbe est une droite.
+\end{recall}
+
+\begin{tcolorbox}[navybar]
+  \begin{definition}
+    On appelle fonction affine par intervalles toute fonction définie sur une réunion
+    d'intervalles et telle que sa restriction à chacun de ces intervalles soit
+    affine.
+  \end{definition}
+\end{tcolorbox}
+
+La fonction valeur absolue est un exemple de fonction affine par intervalles : sa
+restriction à $]-\infty, 0]$ est $x \mapsto -x$, et sa restriction à $[0, +\infty[$
+est $x \mapsto x$. Voir sa définition dans la Sous-section~\ref{ss:valeur_absolue}.
+
+\noindent
+\begin{minipage}[c]{0.52\linewidth}
+  \begin{example}
+    Soit $f$ la fonction définie sur $[-3, 3]$ par
+    \[
+      f(x) =
+      \begin{cases}
+        x + 3 & \text{si } -3 \le x < 0 \\
+        3 & \text{si } 0 \le x \le 1 \\
+        -x + 4 & \text{si } 1 < x \le 3.
+      \end{cases}
+    \]
+    Sa restriction à chacun de ces trois intervalles est affine, donc $f$ est
+    affine par intervalles. De plus, les morceaux se rejoignent bout à bout :
+    en $0$, on a $0 + 3 = 3$, et en $1$, on a $-1 + 4 = 3$. Sa courbe est
+    donnée dans la Figure~\ref{fig:affine_intervalles}.
+  \end{example}
+\end{minipage}\hfill
+\begin{minipage}[c]{0.4\linewidth}
+  \captionsetup{hypcap=false, skip=12pt}
+
+  \begin{minipage}[c][6cm][c]{\linewidth}
+    \centering
+    \framebox[\linewidth]{\rule{0pt}{5cm}}
+  \end{minipage}
+
+  \captionof{figure}{Courbe de $f$.}
+  \label{fig:affine_intervalles}
+\end{minipage}
+\par
+\vspace{0.5em}
+
+On présente maintenant l'exemple le plus important de fonction affine par
+intervalles : la fonction partie entière.
+
+\begin{tcolorbox}[navybar]
+  \begin{definition}
+    On appelle partie entière d'un réel $x$, et on note $E(x)$, le plus grand entier
+    inférieur ou égal à $x$. On appelle fonction partie entière la fonction qui à tout
+    réel associe sa partie entière.
+  \end{definition}
+\end{tcolorbox}
+
+On admet qu'un tel entier existe toujours. C'est beaucoup plus simple qu'on ne le
+croit : $E(x)$ est l'entier juste à gauche de $x$ sur la droite des réels (ou $x$
+lui-même, s'il est entier). Pour $x \ge 0$, c'est $x$ sans sa partie décimale, e.g.
+$E(12.933) = 12$. Attention aux nombres négatifs : $E(-1.5) = -2$ et non $-1$, car
+$-2$ est le plus grand entier inférieur ou égal à $-1.5$. On formalise cela avec la
+propriété suivante.
+
+\begin{tcolorbox}[graybar]
+  \begin{property}
+    Pour tout réel $x$, il existe un unique entier $n$ tel que $x \in [n, n + 1[$.
+    On a alors $E(x) = n$.
+  \end{property}
+\end{tcolorbox}
+
+Ainsi, sur chaque intervalle $[n, n + 1[$ avec $n$ entier, la fonction $E$ est
+constante égale à $n$. C'est donc bien une fonction affine par intervalles, définie
+sur la réunion de ces intervalles, qui est $\mathbb{R}$. On laisse le tracé de sa
+courbe pour le chapitre suivant, quand on étudiera la continuité.
+
+\section{Opérations sur les fonctions}
+
+Jusqu'ici, on a défini des opérations comme l'addition pour certains objets
+mathématiques, surtout les nombres réels et les vecteurs. Dans cette section, on
+définit l'addition et la multiplication pour les fonctions.
+
+\begin{tcolorbox}[navybar]
+  \begin{definition}
+    Soit $D$ une partie de $\mathbb{R}$, et soit $f$ et $g$ deux fonctions définies
+    sur $D$ et à valeurs dans $\mathbb{R}$.
+    \begin{enumerate}[label=(\roman*)]
+      \item\label{def:somme} La fonction $f + g$ est la fonction définie sur $D$ par
+      $(f + g)(x) = f(x) + g(x)$.
+      \item\label{def:produit} La fonction $fg$ est la fonction définie sur $D$ par
+      $(fg)(x) = f(x) \cdot g(x)$.
+      \item\label{def:multiple} Pour tout réel $\lambda$, la fonction $\lambda f$ est la
+      fonction définie sur $D$ par $(\lambda f)(x) = \lambda \cdot f(x)$.
+    \end{enumerate}
+  \end{definition}
+\end{tcolorbox}
+
+\begin{remark}
+  En prenant $\lambda = -1$, on retrouve la fonction $-f : x \mapsto -f(x)$ de la
+  section sur le sens de variation.
+\end{remark}
+
+\begin{tcolorbox}[graybar]
+  \begin{property}
+    Soit $f$ et $g$ deux fonctions définies sur un même ensemble $D$. Alors
+    $f + g = g + f$ et $fg = gf$.
+  \end{property}
+\end{tcolorbox}
+
+\begin{proof}
+  Soit $x \in D$. On a $(f + g)(x) = f(x) + g(x) = g(x) + f(x) = (g + f)(x)$, car
+  l'addition des réels est commutative. Les fonctions $f + g$ et $g + f$ ont le même
+  ensemble de définition $D$ et les mêmes valeurs, donc elles sont égales. Pour
+  $fg = gf$, la preuve est la même, avec la multiplication des réels.
+\end{proof}
+
+\begin{tcolorbox}[graybar]
+  \begin{property}
+    \label{prop:somme_monotone}
+    Soit $f$ et $g$ deux fonctions définies sur un intervalle $I$. Si $f$ et $g$ sont
+    croissantes sur $I$, alors $f + g$ est croissante sur $I$. De même, si $f$ et $g$
+    sont décroissantes sur $I$, alors $f + g$ est décroissante sur $I$.
+  \end{property}
+\end{tcolorbox}
+
+\begin{proof}
+  Supposons $f$ et $g$ croissantes sur $I$, et soit $a \le b$ dans $I$. Alors
+  $f(a) \le f(b)$ et $g(a) \le g(b)$. En additionnant ces deux inégalités, on obtient
+  $f(a) + g(a) \le f(b) + g(b)$, i.e., $(f + g)(a) \le (f + g)(b)$. Donc $f + g$ est
+  croissante sur $I$. Pour des fonctions décroissantes, l'argument est le même, avec
+  des inégalités dans l'autre sens.
+\end{proof}
+
+\begin{tcolorbox}[navybar]
+  \begin{definition}
+    Soit $f$ et $g$ deux fonctions définies sur un ensemble $D$, telles que
+    $g(x) \neq 0$ pour tout $x \in D$.
+    \begin{enumerate}[label=(\roman*)]
+      \item\label{def:inverse} La fonction $x \mapsto \dfrac{1}{g(x)}$ est notée
+      $\dfrac{1}{g}$.
+      \item\label{def:quotient} La fonction $x \mapsto \dfrac{f(x)}{g(x)}$ est notée
+      $\dfrac{f}{g}$.
+    \end{enumerate}
+  \end{definition}
+\end{tcolorbox}
+
+\begin{remark}
+  Les fonctions rationnelles des rappels sont des quotients $\frac{p}{q}$ de deux
+  polynômes, définis sur l'ensemble des $x$ où $q(x) \neq 0$.
+\end{remark}
+
 \newpage
-\section{Translations de graphes}
-
-
+\section{Exercices}
 
 \newpage
 \phantomsection
