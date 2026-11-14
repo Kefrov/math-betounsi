@@ -10,6 +10,9 @@
 \usepackage{cleveref}
 \usepackage{graphicx}
 \usepackage{tikz}
+\usetikzlibrary{babel}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
 \usepackage{caption}
 \usetikzlibrary{decorations.pathreplacing}
 \usepackage{tkz-tab}
@@ -54,6 +57,13 @@ outer arc=0pt,
 left=8pt, right=8pt, top=6pt, bottom=6pt
 },
 }
+
+\usepackage{pifont}
+\newcommand{\diff}[1]{%
+  \textcolor{orange!80!black}{\ifnum#1>0 $\bigstar$\fi\ifnum#1>1 $\bigstar$\fi
+  \ifnum#1>2 $\bigstar$\fi\ifnum#1>3 $\bigstar$\fi\ifnum#1>4 $\bigstar$\fi}%
+  \textcolor{gray!40}{\ifnum#1<5 $\bigstar$\fi\ifnum#1<4 $\bigstar$\fi
+  \ifnum#1<3 $\bigstar$\fi\ifnum#1<2 $\bigstar$\fi\ifnum#1<1 $\bigstar$\fi}}
 
 \theoremstyle{plain}
 \newtheorem{theorem}{Théorème}[section]
@@ -159,7 +169,7 @@ faire un dessin, et cela est très utile pour l'étudier. D'où la définition s
   $(x,y)$ qui vérifient cette règle. Regardez la droite verticale d'équation
   $x=4$ : elle coupe la courbe en deux points, donc deux valeurs de $y$, $-2$ et $2$,
   correspondent à $x = 4$.
-
+  
   Si on prend $y$ comme entrée et $x$ comme sortie, alors on peut définir une
   fonction, qui est simplement $y \mapsto y^2$.
 \end{example}
@@ -179,15 +189,15 @@ faire un dessin, et cela est très utile pour l'étudier. D'où la définition s
     \begin{tikzpicture}[x=0.85cm,y=0.85cm, thick]
       \draw[->] (-0.5,0) -- (6.5,0) node[right] {$x$};
       \draw[->] (0,-3) -- (0,3) node[above] {$y$};
-
+      
       \draw[red, thick, variable=\t, domain=-2.5:2.5, samples=120]
-        plot ({\t*\t}, {\t});
-
+      plot ({\t*\t}, {\t});
+      
       \draw[black] (4,-3) -- (4,3);
-
+      
       \fill[black] (4,2)  circle (2pt);
       \fill[black] (4,-2) circle (2pt);
-
+      
       \node[below right, font=\scriptsize] at (4,2)  {$(4,2)$};
       \node[above right, font=\scriptsize] at (4,-2) {$(4,-2)$};
     \end{tikzpicture}
@@ -199,13 +209,13 @@ faire un dessin, et cela est très utile pour l'étudier. D'où la définition s
     \begin{tikzpicture}[x=1cm,y=1cm, thick]
       \draw[->] (-3,0) -- (3,0) node[right] {};
       \draw[->] (0,-0.5) -- (0,5) node[above] {};
-
+      
       \draw[green!60!black, thick, variable=\t, domain=-2.2:0, samples=120]
-        plot ({\t}, {\t*\t});
-
+      plot ({\t}, {\t*\t});
+      
       \draw[red, thick, variable=\t, domain=0:2.2, samples=120]
-        plot ({\t}, {\t*\t});
-
+      plot ({\t}, {\t*\t});
+      
       \node[green!60!black, below left] at (-1.5,2.25) {$C_f$};
       \node[red, below right] at (1.5,2.25) {$C_g$};
     \end{tikzpicture}
@@ -234,17 +244,17 @@ la voir comme la \textit{distance} entre $x$ et $0$.
 \begin{center}
   \begin{tikzpicture}[x=1cm, y=1cm]
     \draw[->, thick] (-4.5,0) -- (3,0) node[right] {\(x\)};
-
+    
     \draw[thick] (0,0.1) -- (0,-0.1);
-
+    
     \node[below, font=\normalsize] at (-3,-0.1) {\(-3\)};
     \node[below, font=\normalsize] at (0,-0.1) {\(0\)};
-
+    
     \fill (-3,0) circle (2pt);
-
+    
     \draw[decorate, decoration={brace, amplitude=10pt}, thick]
-      (-3, 0.2) -- (0, 0.2)
-      node[midway, above=12pt] {\large $\lvert -3 \rvert = 3$};
+    (-3, 0.2) -- (0, 0.2)
+    node[midway, above=12pt] {\large $\lvert -3 \rvert = 3$};
   \end{tikzpicture}
 \end{center}
 
@@ -255,10 +265,10 @@ la voir comme la \textit{distance} entre $x$ et $0$.
 \end{remark}
 
 \begin{tcolorbox}[graybar]
-\begin{property}
-\label{prop:abs_opposite}
-Pour tout $x \in \mathbb{R}$, on a $\lvert x \rvert = \lvert -x \rvert$.
-\end{property}
+  \begin{property}
+    \label{prop:abs_opposite}
+    Pour tout $x \in \mathbb{R}$, on a $\lvert x \rvert = \lvert -x \rvert$.
+  \end{property}
 \end{tcolorbox}
 
 \begin{proof}
@@ -277,13 +287,13 @@ Propriété~\ref{prop:abs_opposite}, car $b - a = -(a - b)$.
 \begin{center}
   \begin{tikzpicture}[x=1cm, y=1cm]
     \draw[->, thick] (-4.5,0) -- (3,0) node[right] {\(x\)};
-
+    
     \fill (-3,0) circle (2pt);
     \fill (1.5,0) circle (2pt);
-
+    
     \draw[decorate, decoration={brace, amplitude=10pt}, thick]
-      (-3, 0.2) -- (1.5, 0.2)
-      node[midway, above=12pt] {\large $\lvert a - b \rvert$};
+    (-3, 0.2) -- (1.5, 0.2)
+    node[midway, above=12pt] {\large $\lvert a - b \rvert$};
   \end{tikzpicture}
 \end{center}
 
@@ -295,18 +305,18 @@ Propriété~\ref{prop:abs_opposite}, car $b - a = -(a - b)$.
 \begin{example}
   Écrivons $h(x) = \lvert x + 2 \rvert + \lvert x - 1 \rvert$ sans valeur absolue.
   On étudie d'abord le signe de chaque quantité qui est dans une valeur absolue :
-
+  
   \begin{center}
-  \begin{tikzpicture}
-    \tkzTabInit[lgt=2, espcl=2.5, nocadre]
+    \begin{tikzpicture}
+      \tkzTabInit[lgt=2, espcl=2.5, nocadre]
       {$x$ / 1, $x+2$ / 1, $x-1$ / 1}
       {$-\infty$, $-2$, $1$, $+\infty$}
-
-    \tkzTabLine{, -, z, +, t, +}
-    \tkzTabLine{, -, t, -, z, +}
-  \end{tikzpicture}
+      
+      \tkzTabLine{, -, z, +, t, +}
+      \tkzTabLine{, -, t, -, z, +}
+    \end{tikzpicture}
   \end{center}
-
+  
   On a donc trois cas.
   \begin{itemize}
     \item Si $x < -2$ : les deux quantités sont négatives, donc
@@ -319,23 +329,23 @@ Propriété~\ref{prop:abs_opposite}, car $b - a = -(a - b)$.
   \end{itemize}
   Autrement dit,
   \[
-    h(x) =
-    \begin{cases}
-      -2x - 1 & \text{si } x < -2 \\
-      3 & \text{si } -2 \le x \le 1 \\
-      2x + 1 & \text{si } x > 1.
-    \end{cases}
+  h(x) =
+  \begin{cases}
+    -2x - 1 & \text{si } x < -2 \\
+    3 & \text{si } -2 \le x \le 1 \\
+    2x + 1 & \text{si } x > 1.
+  \end{cases}
   \]
   Vérifions avec $x = 3$ : d'un côté $\lvert 5 \rvert + \lvert 2 \rvert = 7$,
   de l'autre $2 \cdot 3 + 1 = 7$.
 \end{example}
 
 \begin{tcolorbox}[graybar]
-\begin{property}
-  \label{prop:abs_ab}
-  Pour tous $a, b \in \mathbb{R}$, on a $\lvert ab \rvert = \lvert a \rvert
-  \lvert b \rvert$.
-\end{property}
+  \begin{property}
+    \label{prop:abs_ab}
+    Pour tous $a, b \in \mathbb{R}$, on a $\lvert ab \rvert = \lvert a \rvert
+    \lvert b \rvert$.
+  \end{property}
 \end{tcolorbox}
 
 \begin{proof}
@@ -353,11 +363,11 @@ de $x$, on regarde où tombe leur valeur absolue, puis on généralise.
     \draw[thick] (0,0.1) -- (0,-0.1);
     \draw[thick] (-4.25,0.1) -- (-4.25,-0.1);
     \draw[thick] (4.25,0.1) -- (4.25,-0.1);
-
+    
     \fill (-1.5,0) circle (2pt);
     \fill (1.5,0) circle (2pt);
     \fill (3.25,0) circle (2pt);
-
+    
     \node[below, font=\normalsize] at (-4.25,-0.1) {\(-r\)};
     \node[below, font=\normalsize] at (-1.5,-0.1) {\(x_1\)};
     \node[below, font=\normalsize] at (0,-0.1) {\(0\)};
@@ -372,22 +382,22 @@ de $x$, on regarde où tombe leur valeur absolue, puis on généralise.
     Soit $r \ge 0$. L'ensemble des réels $x$ qui vérifient $\lvert x \rvert \le r$
     est l'intervalle $[-r, r]$. Autrement dit,
     \[
-      \lvert x \rvert \le r \Longleftrightarrow -r \le x \le r.
+    \lvert x \rvert \le r \Longleftrightarrow -r \le x \le r.
     \]
   \end{property}
 \end{tcolorbox}
 
 \begin{proof}
   On sépare deux cas.
-
+  
   Si $x \ge 0$, alors $\lvert x \rvert = x$, donc $\lvert x \rvert \le r$ revient à
   $x \le r$. Or $-r \le 0 \le x$ est toujours vrai, donc $x \le r$ revient à
   $-r \le x \le r$.
-
+  
   Si $x < 0$, alors $\lvert x \rvert = -x$, donc $\lvert x \rvert \le r$ revient à
   $-x \le r$, c'est-à-dire $x \ge -r$. Or $x < 0 \le r$ est toujours vrai, donc
   $x \ge -r$ revient à $-r \le x \le r$.
-
+  
   Ces deux cas couvrent tous les réels, donc l'équivalence est vraie pour tout $x$.
 \end{proof}
 
@@ -397,7 +407,7 @@ de $x$, on regarde où tombe leur valeur absolue, puis on généralise.
   \Longleftrightarrow 1 \le x \le 5$. En particulier, pour $a \in \mathbb{R}$ et
   $r \ge 0$,
   \[
-    \lvert x - a \rvert \le r \Longleftrightarrow a - r \le x \le a + r.
+  \lvert x - a \rvert \le r \Longleftrightarrow a - r \le x \le a + r.
   \]
   C'est logique : ce sont exactement les réels $x$ dont la distance à $a$ est
   au plus $r$.
@@ -412,10 +422,10 @@ avec la fonction identité $x \mapsto x$.
   \begin{tikzpicture}[x=1cm, y=1cm, thick]
     \draw[->] (-3,0) -- (3,0) node[right] {\(x\)};
     \draw[->] (0,-3) -- (0,3) node[above] {\(y\)};
-
+    
     \draw[gray, thick, domain=-2.5:2.5] plot (\x, \x);
     \node[gray, above left] at (-2, -2) {\(C_x\)};
-
+    
     \draw[black, thick] (-2.5, 2.5) -- (0,0) -- (2.5, 2.5);
     \node[black, below left] at (-2, 2) {\(C_{\lvert x \rvert}\)};
   \end{tikzpicture}
@@ -426,13 +436,13 @@ avec la fonction identité $x \mapsto x$.
 \subsection{Racine carrée}
 
 \begin{tcolorbox}[navybar]
-\begin{definition}
-  Soit $a \ge 0$. Une racine carrée de $a$ est un nombre positif, noté
-  $\sqrt{a}$, tel que
-  \[
+  \begin{definition}
+    Soit $a \ge 0$. Une racine carrée de $a$ est un nombre positif, noté
+    $\sqrt{a}$, tel que
+    \[
     (\sqrt{a})^2 = a.
-  \]
-\end{definition}
+    \]
+  \end{definition}
 \end{tcolorbox}
 
 On admet qu'un tel nombre existe toujours. On insiste sur $a \ge 0$ : l'opérateur
@@ -442,11 +452,11 @@ car le carré d'un réel est toujours positif.
 Prouvons l'unicité de la racine carrée. Prenons deux nombres $x, y \ge 0$ tels que
 $x^2 = a$ et $y^2 = a$. On obtient
 \[
-  \begin{aligned}
-    x^2 &= y^2 \\
-    x^2 - y^2 &= 0 \\
-    (x - y)(x + y) &= 0,
-  \end{aligned}
+\begin{aligned}
+  x^2 &= y^2 \\
+  x^2 - y^2 &= 0 \\
+  (x - y)(x + y) &= 0,
+\end{aligned}
 \]
 ce qui donne $x = y$ ou $x = -y$ (un produit est nul si l'un des facteurs est nul).
 Dans le premier cas, c'est fini : on a bien $x = y$. Dans le second cas, comme
@@ -456,9 +466,9 @@ vaut $a$ : on peut parler de \textit{la} racine carrée de $a$. On utilise ce fa
 pour prouver la propriété suivante.
 
 \begin{tcolorbox}[graybar]
-\begin{property}
-  Pour tous $a, b \ge 0$, on a $\sqrt{ab} = \sqrt{a}\sqrt{b}$.
-\end{property}
+  \begin{property}
+    Pour tous $a, b \ge 0$, on a $\sqrt{ab} = \sqrt{a}\sqrt{b}$.
+  \end{property}
 \end{tcolorbox}
 
 \begin{proof}
@@ -479,9 +489,9 @@ doit être positive. Donc $\sqrt{a^2}$ n'est pas toujours égal à $a$.
 Ne faites pas cette erreur très classique.
 
 \begin{tcolorbox}[graybar]
-\begin{property}
-  Pour tout réel $a$, on a $\sqrt{a^2} = \lvert a \rvert$.
-\end{property}
+  \begin{property}
+    Pour tout réel $a$, on a $\sqrt{a^2} = \lvert a \rvert$.
+  \end{property}
 \end{tcolorbox}
 
 \begin{proof}
@@ -502,7 +512,7 @@ de la Figure~\ref{fig:inverse_x_sq}.
   \begin{tikzpicture}[x=1cm, y=1cm, thick]
     \draw[->] (-0.5,0) -- (7,0) node[right] {\(x\)};
     \draw[->] (0,-0.5) -- (0,3) node[above] {\(y\)};
-
+    
     \draw[black, thick, domain=0:6.5, samples=100] plot (\x, {sqrt(\x)});
     \node[black, above left] at (5, 2.3) {\(C_{\sqrt{x}}\)};
   \end{tikzpicture}
@@ -537,7 +547,7 @@ $m = 2$. On dit que ces polynômes sont du second degré.
     p(x) = a_0 + a_1 x + a_2 x^2 + \cdots + a_m x^m,
     \]
     où $a_0, \dots, a_m \in \mathbb{R}$ et $a_m \neq 0$.
-
+    
     Par convention, le degré du polynôme nul n'est pas défini.
   \end{definition}
 \end{tcolorbox}
@@ -555,12 +565,12 @@ On s'est aussi beaucoup intéressé aux racines des polynômes de degré $2$.
   \begin{example}
     Considérons l'équation du second degré
     \[
-      p(x) = x^2 - 5x + 6 = 0.
+    p(x) = x^2 - 5x + 6 = 0.
     \]
     Graphiquement, comme le montre la Figure~\ref{fig:poly_roots},
     les racines sont $2$ et $3$. On peut aussi le vérifier facilement :
     $p(2) = 4 - 10 + 6 = 0$ et $p(3) = 9 - 15 + 6 = 0$.
-
+    
     Une question se pose pourtant : comment trouver les racines de façon
     \textit{sûre}, i.e., sans utiliser la courbe de $p$ ?
     \label{eg:poly_roots}
@@ -568,21 +578,21 @@ On s'est aussi beaucoup intéressé aux racines des polynômes de degré $2$.
 \end{minipage}\hfill
 \begin{minipage}[c]{0.42\linewidth}
   \captionsetup{hypcap=false, skip=12pt}
-
+  
   \begin{minipage}[c][6cm][c]{\linewidth}
     \centering
     \begin{tikzpicture}[x=1cm, y=0.8cm, thick]
       \draw[->] (-0.5,0) -- (5.2,0) node[right] {\(x\)};
       \draw[->] (0,-1) -- (0,6.5) node[above] {\(y\)};
-
+      
       \draw[black, thick, variable=\t, domain=0:5, samples=120]
-        plot ({\t}, {\t*\t - 5*\t + 6}) node[above right] {\(C_p\)};
-
+      plot ({\t}, {\t*\t - 5*\t + 6}) node[above right] {\(C_p\)};
+      
       \fill[red] (2,0) circle (2pt) node[below left] {\(x_1=2\)};
       \fill[red] (3,0) circle (2pt) node[below right] {\(x_2=3\)};
     \end{tikzpicture}
   \end{minipage}
-
+  
   \captionof{figure}{Racines de $x^2 - 5x + 6$.}
   \label{fig:poly_roots}
 \end{minipage}
@@ -636,8 +646,8 @@ On obtient donc 3 cas :
   $\frac{\Delta}{4a^2} = \Delta \left(\frac{1}{2a}\right)^2$, les propriétés de
   la racine carrée donnent
   \[
-    \sqrt{\frac{\Delta}{4a^2}} = \sqrt{\Delta}\,\sqrt{\left(\frac{1}{2a}\right)^2}
-    = \sqrt{\Delta}\,\left\lvert\frac{1}{2a}\right\rvert = \frac{\sqrt{\Delta}}{2\lvert a \rvert}.
+  \sqrt{\frac{\Delta}{4a^2}} = \sqrt{\Delta}\,\sqrt{\left(\frac{1}{2a}\right)^2}
+  = \sqrt{\Delta}\,\left\lvert\frac{1}{2a}\right\rvert = \frac{\sqrt{\Delta}}{2\lvert a \rvert}.
   \]
   Le signe $\pm$ nous permet de remplacer $\lvert a \rvert$ par $a$ : si $a < 0$,
   les deux nombres $\pm\frac{\sqrt{\Delta}}{2\lvert a \rvert}$ sont les mêmes
@@ -658,67 +668,67 @@ observation nous pousse à chercher le lien entre les racines d'un polynôme du
 second degré et son signe. Pour cela, on aura besoin du théorème suivant.
 
 \begin{tcolorbox}[navybar]
-\begin{theorem}
-  Soit $p$ un polynôme de degré $m \in \mathbb{N}^*$ et $\lambda \in \mathbb{R}$.
-  Alors $p(\lambda) = 0$ si et seulement s'il existe un polynôme $q$ de degré
-  $m - 1$ tel que
-  \[
+  \begin{theorem}
+    Soit $p$ un polynôme de degré $m \in \mathbb{N}^*$ et $\lambda \in \mathbb{R}$.
+    Alors $p(\lambda) = 0$ si et seulement s'il existe un polynôme $q$ de degré
+    $m - 1$ tel que
+    \[
     p(x) = (x - \lambda)q(x)
-  \]
-  pour tout $x \in \mathbb{R}$.
-\end{theorem}
+    \]
+    pour tout $x \in \mathbb{R}$.
+  \end{theorem}
 \end{tcolorbox}
 
 \begin{proof}
-  Exercice~??.
+  Exercice~\ref{ex:root_fact}.
 \end{proof}
 
 \begin{example}
   Considérons le polynôme du second degré $p(x) = x^2 - 5x + 6$. On sait déjà,
   grâce à la Figure~\ref{fig:poly_roots}, que ses racines sont $x_1 = 2$ et $x_2 = 3$.
-
+  
   D'après le théorème précédent, comme $p(2) = 0$, il existe un polynôme $q$
   de degré $1$ tel que
   \[
-    p(x) = (x - 2)q(x).
+  p(x) = (x - 2)q(x).
   \]
-
+  
   Appliquons le théorème une deuxième fois pour trouver $q$. On calcule $p$ en
   l'autre racine, $x = 3$ :
   \[
-    p(3) = (3 - 2)q(3) \implies 0 = 1 \cdot q(3) \implies q(3) = 0.
+  p(3) = (3 - 2)q(3) \implies 0 = 1 \cdot q(3) \implies q(3) = 0.
   \]
   Comme $q(3) = 0$, le théorème dit qu'il existe un polynôme $r$ de degré
   $1 - 1 = 0$ tel que $q(x) = (x - 3)r(x)$.
-
+  
   Un polynôme de degré $0$ est simplement une constante, donc $r(x) = a$ pour un
   certain réel $a$. En remplaçant, on obtient
   \[
-    p(x) = a(x - 2)(x - 3).
+  p(x) = a(x - 2)(x - 3).
   \]
   Si on développe le côté droit, le terme de plus haut degré est $ax^2$. Or
   $p(x) = x^2 - 5x + 6$ a pour coefficient de $x^2$ le nombre $1$. Par
   identification (on admet que deux polynômes égaux ont les mêmes coefficients),
   on a $a = 1$. On obtient donc la factorisation complète :
   \[
-    p(x) = (x - 2)(x - 3).
+  p(x) = (x - 2)(x - 3).
   \]
-
+  
   Le signe de $p(x)$ dépend des signes de ses deux facteurs. En étudiant le signe
   de chaque facteur séparément, on peut construire le tableau de signes suivant :
-
+  
   \begin{center}
-  \begin{tikzpicture}
-    \tkzTabInit[lgt=2, espcl=2.5, nocadre]
+    \begin{tikzpicture}
+      \tkzTabInit[lgt=2, espcl=2.5, nocadre]
       {$x$ / 1, $x-2$ / 1, $x-3$ / 1, $p(x)$ / 1}
       {$-\infty$, $2$, $3$, $+\infty$}
-
-    \tkzTabLine{, -, z, +, t, +}
-    \tkzTabLine{, -, t, -, z, +}
-    \tkzTabLine{, +, z, -, z, +}
-  \end{tikzpicture}
+      
+      \tkzTabLine{, -, z, +, t, +}
+      \tkzTabLine{, -, t, -, z, +}
+      \tkzTabLine{, +, z, -, z, +}
+    \end{tikzpicture}
   \end{center}
-
+  
   Comme on s'y attendait avec le graphe de $p$, on a $p(x) > 0$ pour
   $x \in ]-\infty, 2[ \,\cup\, ]3, +\infty[$, on a $p(x) < 0$ pour
   $x \in ]2, 3[$, et $p(x) = 0$ pour $x = 2$ et $x = 3$.
@@ -729,22 +739,22 @@ second degré et son signe. Pour cela, on aura besoin du théorème suivant.
   $\Delta = (-4)^2 - 4 \times 1 \times 4 = 0$, donc il y a une seule racine,
   $x = 2$. On reconnaît aussi une identité remarquable :
   \[
-    p(x) = (x - 2)^2.
+  p(x) = (x - 2)^2.
   \]
   Le facteur $x - 2$ apparaît deux fois, c'est pour cela qu'on parle de racine
   double. Voici le tableau de signes :
-
+  
   \begin{center}
-  \begin{tikzpicture}
-    \tkzTabInit[lgt=2, espcl=2.5, nocadre]
+    \begin{tikzpicture}
+      \tkzTabInit[lgt=2, espcl=2.5, nocadre]
       {$x$ / 1, $x-2$ / 1, $p(x)$ / 1}
       {$-\infty$, $2$, $+\infty$}
-
-    \tkzTabLine{, -, z, +}
-    \tkzTabLine{, +, z, +}
-  \end{tikzpicture}
+      
+      \tkzTabLine{, -, z, +}
+      \tkzTabLine{, +, z, +}
+    \end{tikzpicture}
   \end{center}
-
+  
   Le polynôme $p$ est donc toujours positif, et il s'annule seulement en $2$.
   À part en sa racine double, il a le signe de son coefficient de $x^2$, qui
   est $1$.
@@ -756,20 +766,20 @@ second degré et son signe. Pour cela, on aura besoin du théorème suivant.
   aucune racine, et on ne peut pas le factoriser comme avant. Pour trouver son
   signe, on refait l'idée de tout à l'heure : faire apparaître un carré.
   \[
-    p(x) = -(x^2 - 2x + 2) = -\left((x - 1)^2 + 1\right).
+  p(x) = -(x^2 - 2x + 2) = -\left((x - 1)^2 + 1\right).
   \]
   Comme $(x - 1)^2 \ge 0$, on a $(x - 1)^2 + 1 \ge 1 > 0$. Donc $p(x) < 0$ pour
   tout réel $x$ : le polynôme garde toujours le signe de son coefficient de
   $x^2$, qui est $-1$. Voici le tableau de signes :
-
+  
   \begin{center}
-  \begin{tikzpicture}
-    \tkzTabInit[lgt=2, espcl=4, nocadre]
+    \begin{tikzpicture}
+      \tkzTabInit[lgt=2, espcl=4, nocadre]
       {$x$ / 1, $p(x)$ / 1}
       {$-\infty$, $+\infty$}
-
-    \tkzTabLine{, -}
-  \end{tikzpicture}
+      
+      \tkzTabLine{, -}
+    \end{tikzpicture}
   \end{center}
 \end{example}
 
@@ -780,7 +790,7 @@ second degré et son signe. Pour cela, on aura besoin du théorème suivant.
     Une fonction rationnelle est une fonction $f$ qui peut s'écrire comme le
     quotient de deux polynômes :
     \[
-      f(x) = \frac{p(x)}{q(x)}
+    f(x) = \frac{p(x)}{q(x)}
     \]
     où $p$ et $q$ sont des polynômes, et $q$ n'est pas le polynôme nul.
   \end{definition}
@@ -789,7 +799,7 @@ second degré et son signe. Pour cela, on aura besoin du théorème suivant.
 Comme diviser par zéro n'a pas de sens, une fonction rationnelle $x \mapsto f(x)$
 n'est définie que pour les $x$ où le polynôme $q$ ne s'annule pas. Autrement dit,
 \[
-  D_f = \{x \in \mathbb{R} \mid q(x) \neq 0\}.
+D_f = \{x \in \mathbb{R} \mid q(x) \neq 0\}.
 \]
 
 \begin{remark}
@@ -808,7 +818,7 @@ n'est définie que pour les $x$ où le polynôme $q$ ne s'annule pas. Autrement 
 \begin{example}
   Considérons la fonction suivante, définie sur $\mathbb{R} \setminus \{1\}$ :
   \[
-    f(x) = \frac{x^2 - 1}{x - 1}.
+  f(x) = \frac{x^2 - 1}{x - 1}.
   \]
   Remarquons que, pour tout $x \neq 1$, on a
   $\frac{x^2 - 1}{x - 1} = \frac{(x - 1)(x + 1)}{x - 1} = x + 1$.
@@ -823,7 +833,7 @@ n'est définie que pour les $x$ où le polynôme $q$ ne s'annule pas. Autrement 
   Considérons la fonction $g(x) = \frac{x^2 + 1}{x}$. Son ensemble de définition
   est $D_g = \mathbb{R} \setminus \{0\}$. On peut réécrire l'expression :
   \[
-    g(x) = x + \frac{1}{x}.
+  g(x) = x + \frac{1}{x}.
   \]
   Quand $x$ devient très grand en valeur absolue, $\frac{1}{x}$ se rapproche de $0$.
   Par exemple, pour $x = 1000$, on a $\frac{1}{x} = 0.001$ et $g(x) = 1000.001$.
@@ -838,7 +848,7 @@ n'est définie que pour les $x$ où le polynôme $q$ ne s'annule pas. Autrement 
     \begin{tikzpicture}[x=0.8cm, y=0.8cm, thick]
       \draw[->] (-4,0) -- (4,0) node[right] {\(x\)};
       \draw[->] (0,-4) -- (0,4) node[above] {\(y\)};
-
+      
       \draw[black, thick, domain=-3.8:-0.25, samples=100] plot (\x, {1/\x});
       \draw[black, thick, domain=0.25:3.8, samples=100] plot (\x, {1/\x});
     \end{tikzpicture}
@@ -850,13 +860,13 @@ n'est définie que pour les $x$ où le polynôme $q$ ne s'annule pas. Autrement 
     \begin{tikzpicture}[x=0.8cm, y=0.8cm, thick]
       \draw[->] (-4,0) -- (4,0) node[right] {\(x\)};
       \draw[->] (0,-4) -- (0,4) node[above] {\(y\)};
-
+      
       \draw[gray, thick, domain=-3.5:3.5] plot (\x, \x);
       \node[gray, above left] at (-2.5, -2.5) {\(C_x\)};
-
+      
       \draw[black, thick, domain=-3.5:-0.28, samples=100] plot (\x, {\x + 1/\x});
       \draw[black, thick, domain=0.28:3.5, samples=100] plot (\x, {\x + 1/\x});
-
+      
       \node[black, above right] at (1.6, 2.8) {\(C_g\)};
     \end{tikzpicture}
     \caption{Courbe de $x \mapsto x + \frac{1}{x}$.}
@@ -878,26 +888,26 @@ $g$ à l'aide de $f(x)$. Par exemple, avec $b = 3$, le point $(2, 8)$ de $C_f$
 devient le point $(2, 11)$ de $C_g$.
 
 \begin{center}
-\begin{tikzpicture}[x=1cm, y=0.4cm, thick]
-  \draw[->] (-2.5,0) -- (2.5,0) node[right] {\(x\)};
-  \draw[->] (0,-4) -- (0,13) node[above] {\(y\)};
-
-  \draw[blue!80!black, domain=-1.55:2.05, samples=100] plot (\x, {\x*\x*\x});
-  \node[blue!80!black, right] at (-1.5, -3.375) {\(C_f\)};
-  
-  \draw[red!80!black, domain=-1.8:2.05, samples=100] plot (\x, {\x*\x*\x + 3});
-  \node[red!80!black, above left] at (-1.5, 0) {\(C_g\)};
-
-  \fill (2, 8) circle (2pt) node[below right] {\(A(2, 8)\)};
-  \fill (2, 11) circle (2pt) node[above right] {\(B(2, 11)\)};
-
-  \draw (1,0.2) -- (1,-0.2) node[below] {\(1\)};
-  \draw (2,0.2) -- (2,-0.2) node[below] {\(2\)};
-  \draw (-1,0.2) -- (-1,-0.2) node[below] {\(-1\)};
-  \draw (-2,0.2) -- (-2,-0.2) node[below] {\(-2\)};
-
-  \draw[->, dashed, gray, thick] (2, 8) -- (2, 11) node[midway, right] {\(\vec{v}(0, 3)\)};
-\end{tikzpicture}
+  \begin{tikzpicture}[x=1cm, y=0.4cm, thick]
+    \draw[->] (-2.5,0) -- (2.5,0) node[right] {\(x\)};
+    \draw[->] (0,-4) -- (0,13) node[above] {\(y\)};
+    
+    \draw[blue!80!black, domain=-1.55:2.05, samples=100] plot (\x, {\x*\x*\x});
+    \node[blue!80!black, right] at (-1.5, -3.375) {\(C_f\)};
+    
+    \draw[red!80!black, domain=-1.8:2.05, samples=100] plot (\x, {\x*\x*\x + 3});
+    \node[red!80!black, above left] at (-1.5, 0) {\(C_g\)};
+    
+    \fill (2, 8) circle (1.5pt) node[below right] {\((2, 8)\)};
+    \fill (2, 11) circle (1.5pt) node[above right] {\((2, 11)\)};
+    
+    \draw (1,0.2) -- (1,-0.2) node[below] {};
+    \draw (2,0.2) -- (2,-0.2) node[below] {};
+    \draw (-1,0.2) -- (-1,-0.2) node[below] {};
+    \draw (-2,0.2) -- (-2,-0.2) node[below] {};
+    
+    \draw[->, dashed, gray, thick] (2, 8) -- (2, 11) node[midway, right] {\(\vec{v}(0, 3)\)};
+  \end{tikzpicture}
 \end{center}
 
 Remarquons que, pour n'importe quelle entrée $x$, la translation envoie le point
@@ -910,7 +920,28 @@ avec $a = 2$, le point $(1, 1)$ de $C_f$ devient le point $(3, 1)$ de $C_h$, don
 $h(3) = 1 = f(3 - 2)$.
 
 \begin{center}
-  \framebox[0.6\linewidth]{\rule{0pt}{4cm}}
+  \begin{tikzpicture}[x=0.8cm, y=0.3cm, thick]
+    \draw[->] (-2.5,0) -- (4.5,0) node[right] {\(x\)};
+    \draw[->] (0,-4) -- (0,10) node[above] {\(y\)};
+    
+    \draw (1,0.3) -- (1,-0.3) node[below] {};
+    \draw (2,0.3) -- (2,-0.3) node[below] {};
+    \draw (3,0.3) -- (3,-0.3) node[below] {};
+    \draw (4,0.3) -- (4,-0.3) node[below] {};
+    \draw (-1,0.3) -- (-1,-0.3) node[below] {};
+    \draw (-2,0.3) -- (-2,-0.3) node[below] {};
+    
+    \draw[blue!80!black, domain=-1.5:2.05, samples=100] plot (\x, {\x*\x*\x});
+    \node[blue!80!black, right] at (-1.5, -3.375) {\(C_f\)};
+    
+    \draw[green!60!black, domain=0.5:4.05, samples=100] plot (\x, {(\x-2)*(\x-2)*(\x-2)});
+    \node[green!60!black, above left] at (3.8, 5.832) {\(C_h\)};
+    
+    \fill (1, 1) circle (1.5pt) node[above left] {\((1, 1)\)};
+    \fill (3, 1) circle (1.5pt) node[above right] {\((3, 1)\)};
+    
+    \draw[->, dashed, gray, thick] (1, 1) -- (3, 1) node[midway, above=3pt] {\(\vec{v}(2, 0)\)};
+  \end{tikzpicture}
 \end{center}
 
 Quand on a translaté verticalement, il suffisait d'ajouter un réel à $f(x)$, car
@@ -929,7 +960,7 @@ comme si $h$ avait un retard de $a$ sur $f$.
 En combinant nos deux résultats, on conclut que la fonction $x \mapsto f(x - a) + b$
 a pour courbe la translatée de $C_f$ par le vecteur $(a, b)$. Autrement dit,
 \[
-  \{(x, f(x - a) + b) \mid x - a \in D_f\} = \{z + (a, b) \mid z \in C_f\}.
+\{(x, f(x - a) + b) \mid x - a \in D_f\} = \{z + (a, b) \mid z \in C_f\}.
 \]
 Notez que l'ensemble de définition change aussi : c'est l'ensemble des réels $x$ tels
 que $x - a \in D_f$, i.e., $D_f$ lui-même translaté de $a$.
@@ -938,7 +969,7 @@ que $x - a \in D_f$, i.e., $D_f$ lui-même translaté de $a$.
   Considérons $f : x \mapsto \sqrt{x}$, définie sur $\mathbb{R}_+$, et translatons sa
   courbe par le vecteur $(-1, 2)$. Ici $a = -1$ et $b = 2$, donc la nouvelle fonction est
   \[
-    g(x) = f(x + 1) + 2 = \sqrt{x + 1} + 2.
+  g(x) = f(x + 1) + 2 = \sqrt{x + 1} + 2.
   \]
   Son ensemble de définition est $[-1, +\infty[$, car $x + 1 \ge 0$ si et seulement
   si $x \ge -1$. Il a donc changé : il était $[0, +\infty[$. On vérifie que le point
@@ -954,24 +985,50 @@ que $x - a \in D_f$, i.e., $D_f$ lui-même translaté de $a$.
   coupe l'axe des abscisses en deux points, $-1$ et $1$. La parabole de $f$ le touche
   en un seul point, $0$. La parabole translatée vers le haut ne le touche pas. Ainsi,
   translater la courbe change le nombre de racines.
-
+  
   À vous de jouer : vérifiez ce nombre de solutions en calculant le discriminant.
   Indice : pour $x^2 - 1$, on a $a = 1$, $b = 0$ et $c = -1$.
 \end{example}
 
 \begin{figure}[htbp]
   \centering
-  \begin{minipage}[t]{0.43\linewidth}
+  \begin{minipage}[t]{0.47\linewidth}
     \centering
-    \framebox[\linewidth]{\rule{0pt}{4cm}}
-    \caption{Les courbes de $x \mapsto \sqrt{x}$ et de sa translatée par le vecteur
-    $(-1, 2)$.}
+    \begin{tikzpicture}[scale=0.9]
+      \draw[->] (-2.2,0) -- (5.2,0) node[right] {$x$};
+      \draw[->] (0,-0.5) -- (0,4.8) node[above] {$y$};
+      \draw[thick,blue,domain=0:4.2,samples=100] plot (\x,{sqrt(\x)});
+      \node[blue,right] at (4.2,{sqrt(4.2)}) {$C_f$};
+      \draw[thick,red,domain=-1:3.2,samples=120] plot (\x,{sqrt(\x+1)+2});
+      \node[red,right] at (3.2,{sqrt(3.2)+2.2}) {$C_g$};
+      \draw[dashed] (-1,2) -- (-1,0) node[below] {\scriptsize $-1$};
+      \draw[dashed] (-1,2) -- (0,2) node[right] {\scriptsize $2$};
+      \draw[->,dashed] (0,0) -- (-1,2);
+      \filldraw (0,0) circle (1.5pt) node[below right] {\scriptsize $(0,0)$};
+      \filldraw (-1,2) circle (1.5pt) node[left] {\scriptsize $(-1,2)$};
+    \end{tikzpicture}
+    \caption{Les courbes de $x \mapsto \sqrt{x}$ et de sa translatée par le vecteur $(-1,2)$.}
     \label{fig:translation_sqrt}
   \end{minipage}\hfill
-  \begin{minipage}[t]{0.42\linewidth}
+  \begin{minipage}[t]{0.47\linewidth}
     \centering
-    \framebox[\linewidth]{\rule{0pt}{4cm}}
-    \caption{Les courbes de $x \mapsto x^2 - 1$, $x \mapsto x^2$ et $x \mapsto x^2 + 1$.}
+    \begin{tikzpicture}[scale=1]
+      \draw[->] (-2.8,0) -- (2.8,0) node[right] {$x$};
+      \draw[->] (0,-1.2) -- (0,5.2) node[above] {$y$};
+      \foreach \y in {1,2,3,4} {
+        \draw (0.08,\y) -- (-0.08,\y) node[left] {\scriptsize $\y$};
+      }
+      \draw[thick,red,domain=-2:2,samples=100] plot (\x,{(\x)*(\x)-1});
+      \node[red,right] at (2,{2*2.25-1.5}) {\scriptsize $x^2-1$};
+      \draw[thick,blue,domain=-2:2,samples=100] plot (\x,{(\x)*(\x)});
+      \node[blue,right] at (2,{2*2}) {\scriptsize $x^2$};
+      \draw[thick,green!60!black,domain=-2:2,samples=100] plot (\x,{(\x)*(\x)+1});
+      \node[green!60!black,right] at (2,{2*2+1}) {\scriptsize $x^2+1$};
+      \filldraw (-1,0) circle (1.5pt) node[below left] {\scriptsize $-1$};
+      \filldraw (1,0) circle (1.5pt) node[below right] {\scriptsize $1$};
+      \filldraw (0,0) circle (1.5pt);
+    \end{tikzpicture}
+    \caption{Les courbes de $x \mapsto x^2-1$, $x \mapsto x^2$ et $x \mapsto x^2+1$.}
     \label{fig:translation_parabole}
   \end{minipage}
 \end{figure}
@@ -1006,31 +1063,57 @@ section, $I$ désigne un intervalle.
 \begin{example}
   Soit $g$ la fonction définie sur $\mathbb{R}$ par
   \[
-    g(x) =
-    \begin{cases}
-      0 & \text{si } x < 0 \\
-      x & \text{si } x \ge 0.
-    \end{cases}
+  g(x) =
+  \begin{cases}
+    0 & \text{si } x < 0 \\
+    x & \text{si } x \ge 0.
+  \end{cases}
   \]
   Elle est croissante sur $\mathbb{R}$. En effet, soit $a \le b$. Si $b < 0$, alors
   $g(a) = g(b) = 0$. Si $a < 0 \le b$, alors $g(a) = 0 \le b = g(b)$. Si $0 \le a$,
   alors $g(a) = a \le b = g(b)$.
-
+  
   Par contre, $g$ n'est pas strictement croissante sur $\mathbb{R}$ : on a $-2 < -1$,
   mais $g(-2) = g(-1) = 0$, donc $g(-2) < g(-1)$ est faux.
 \end{example}
 
 \begin{figure}[htbp]
   \centering
-  \begin{minipage}[t]{0.43\linewidth}
+  \begin{minipage}[t]{0.47\linewidth}
     \centering
-    \framebox[\linewidth]{\rule{0pt}{4cm}}
+    \begin{tikzpicture}[scale=0.85]
+      \draw[->] (-3.5,0) -- (3.5,0) node[right] {$x$};
+      \draw[->] (0,-1.6) -- (0,3.5) node[above] {$y$};
+      \foreach \x in {-3,-2,-1,1,2,3} {
+        \draw (\x,0.08) -- (\x,-0.08) node[below] {\scriptsize $\x$};
+      }
+      \foreach \y in {-1,1,2,3} {
+        \draw (0.08,\y) -- (-0.08,\y) node[left] {\scriptsize $\y$};
+      }
+      \draw[thick,blue,domain=-1.2:1.1,samples=100] plot (\x,{2*(\x)+1});
+      \node[blue,right] at (1.1,3.2) {$C_f$};
+      \filldraw (-0.5,0) circle (1.5pt);
+      \filldraw (0,1) circle (1.5pt);
+    \end{tikzpicture}
     \caption{Courbe de $f : x \mapsto 2x + 1$.}
     \label{fig:strict_croissante}
   \end{minipage}\hfill
-  \begin{minipage}[t]{0.42\linewidth}
+  \begin{minipage}[t]{0.47\linewidth}
     \centering
-    \framebox[\linewidth]{\rule{0pt}{4cm}}
+    \begin{tikzpicture}[scale=0.9]
+      \draw[->] (-3.5,0) -- (3.5,0) node[right] {$x$};
+      \draw[->] (0,-1.6) -- (0,3.5) node[above] {$y$};
+      \foreach \x in {-3,-2,-1,1,2,3} {
+        \draw (\x,0.08) -- (\x,-0.08) node[below] {\scriptsize $\x$};
+      }
+      \foreach \y in {-1,1,2,3} {
+        \draw (0.08,\y) -- (-0.08,\y) node[left] {\scriptsize $\y$};
+      }
+      \draw[thick,blue] (-3,0) -- (0,0);
+      \draw[thick,blue] (0,0) -- (3,3);
+      \node[blue,right] at (3,3) {$C_g$};
+      \filldraw (0,0) circle (1.5pt);
+    \end{tikzpicture}
     \caption{Courbe de $g$.}
     \label{fig:croissante_non_stricte}
   \end{minipage}
@@ -1046,7 +1129,7 @@ $I$, puis celle d'une fonction strictement décroissante sur $I$.
   $a - 1 \le b - 1 \le 0$, donc $\lvert a - 1 \rvert = 1 - a \ge 1 - b =
   \lvert b - 1 \rvert$, i.e., $f(a) \ge f(b)$. Si $1 \le a \le b$, alors $a - 1 \ge 0$
   et $b - 1 \ge 0$, donc $f(a) = a - 1 \le b - 1 = f(b)$.
-
+  
   Par contre, elle n'est ni croissante ni décroissante sur $\mathbb{R}$ : on a
   $f(0) = 1$, $f(1) = 0$ et $f(2) = 1$. Comme $0 < 1$ et $f(0) > f(1)$, elle n'est pas
   croissante. Comme $1 < 2$ et $f(1) < f(2)$, elle n'est pas décroissante.
@@ -1081,12 +1164,26 @@ constante est à la fois croissante et décroissante, donc monotone.
 \end{minipage}\hfill
 \begin{minipage}[c]{0.42\linewidth}
   \captionsetup{hypcap=false, skip=12pt}
-
+  
   \begin{minipage}[c][6cm][c]{\linewidth}
     \centering
-    \framebox[\linewidth]{\rule{0pt}{5cm}}
+    \begin{tikzpicture}[scale=0.75]
+      \draw[->] (-2.5,0) -- (4.5,0) node[right] {$x$};
+      \draw[->] (0,-3.2) -- (0,3.2) node[above] {$y$};
+      \foreach \x in {-2,-1,1,2,3,4} {
+        \draw (\x,0.08) -- (\x,-0.08) node[below] {\scriptsize $\x$};
+      }
+      \foreach \y in {-2,-1,1,2} {
+        \draw (0.08,\y) -- (-0.08,\y) node[left] {\scriptsize $\y$};
+      }
+      \draw[thick,blue,domain=-2:4,samples=100] plot (\x,{abs(\x-1)});
+      \node[blue,right] at (4,3) {$C_f$};
+      \draw[thick,red,domain=-2:4,samples=100] plot (\x,{-abs(\x-1)});
+      \node[red,right] at (4,-3) {$C_{-f}$};
+      \draw[dashed] (1,0) -- (1,0);
+    \end{tikzpicture}
   \end{minipage}
-
+  
   \captionof{figure}{Les courbes de $f$ et de $-f$.}
   \label{fig:moins_f}
 \end{minipage}
@@ -1169,7 +1266,7 @@ courbes des fonctions impaires.
   $x^3$ vérifie $(-x)^3 = -x^3$ pour tout réel $x$, mais la fonction $f$ n'est pas
   impaire : on a $2 \in D_f$ et pourtant $-2 \notin D_f$. Elle n'est pas non plus
   paire, pour la même raison.
-
+  
   Attention donc : pour savoir si une fonction est paire ou impaire, on regarde
   d'abord son ensemble de définition, et ensuite son expression. Rappelez-vous
   qu'une fonction est définie par son ensemble de définition et sa règle.
@@ -1187,7 +1284,7 @@ symétrie.
     $D_f$. On appelle restriction de la fonction $f$ à $D$ la fonction $g$ définie
     sur $D$ par
     \[
-      g(x) = f(x), \quad \text{pour tout } x \in D.
+    g(x) = f(x), \quad \text{pour tout } x \in D.
     \]
   \end{definition}
 \end{tcolorbox}
@@ -1201,23 +1298,50 @@ $\mathbb{R}$, mais sa restriction à $[1, +\infty[$ est croissante.
 \begin{example}
   Considérons la fonction $f$ définie sur $\mathbb{R}$ par
   \[
-    f(x) = 2\lvert x - 2 \rvert - \lvert x + 3 \rvert - x^2.
+  f(x) = \lvert x - 2 \rvert - x^2.
   \]
   Soit $g$ la restriction de $f$ à l'intervalle $[2, +\infty[$. Pour $x \ge 2$, on a
-  $x - 2 \ge 0$ et $x + 3 > 0$, donc $\lvert x - 2 \rvert = x - 2$ et
-  $\lvert x + 3 \rvert = x + 3$. Les valeurs absolues disparaissent, et on obtient
+  $x - 2 \ge 0$, donc $\lvert x - 2 \rvert = x - 2$. La valeur absolue disparaît, et on obtient
   \[
-    g(x) = 2(x - 2) - (x + 3) - x^2 = -x^2 + x - 7.
+  g(x) = (x - 2) - x^2 = -x^2 + x - 2.
   \]
-  Vérifions avec $x = 3$ : $f(3) = 2 \cdot 1 - 6 - 9 = -13$ et
-  $g(3) = -9 + 3 - 7 = -13$. La Figure~\ref{fig:restriction} montre la courbe de $g$
+  Vérifions avec $x = 3$ : $f(3) = 1 - 9 = -8$ et
+  $g(3) = -9 + 3 - 2 = -8$. La Figure~\ref{fig:restriction} montre la courbe de $g$
   et celle de $f$.
 \end{example}
 
 \begin{figure}[ht]
   \centering
-  \framebox[0.7\linewidth]{\rule{0pt}{5cm}}
-  \caption{La courbe de $g$ et celle de $f$.}
+  \begin{tikzpicture}
+    \begin{axis}[
+      width=0.9\textwidth,
+      height=7.5cm,
+      axis lines=middle,
+      xlabel={$x$},
+      ylabel={$y$},
+      xlabel style={at={(ticklabel* cs:1)}, anchor=west},
+      ylabel style={at={(ticklabel* cs:1)}, anchor=south},
+      xmin=-4.5, xmax=4.5,
+      ymin=-15, ymax=7,
+      xtick={-4,-3,-2,-1,1,2,3,4},
+      ytick={-12,-8,-4,4},
+      tick label style={font=\scriptsize},
+      clip=false,
+    ]
+      \addplot[blue, thick, domain=-4.2:4, samples=200] {abs(x-2) - x^2};
+      \addplot[red, line width=1.6pt, dashed, domain=2:4, samples=100] {(x-2) - x^2};
+
+      \draw[dashed, gray] (axis cs:2,0) -- (axis cs:2,-4) -- (axis cs:0,-4);
+      \draw[dashed, gray] (axis cs:3,0) -- (axis cs:3,-8) -- (axis cs:0,-8);
+
+      \addplot[only marks, mark=*, mark size=1.5pt, black]
+        coordinates {(2,-4) (3,-8)};
+
+      \node[blue, anchor=east] at (axis cs:-3.6,-7.5) {$C_f$};
+      \node[red, anchor=west] at (axis cs:4.15,-14) {$C_g$};
+    \end{axis}
+  \end{tikzpicture}
+  \caption{La courbe de $g$ (en rouge) coïncide avec celle de $f$ (en bleu) sur $[2,+\infty[$.}
   \label{fig:restriction}
 \end{figure}
 
@@ -1307,12 +1431,12 @@ est $x \mapsto x$. Voir sa définition dans la Sous-section~\ref{ss:valeur_absol
   \begin{example}
     Soit $f$ la fonction définie sur $[-3, 3]$ par
     \[
-      f(x) =
-      \begin{cases}
-        x + 3 & \text{si } -3 \le x < 0 \\
-        3 & \text{si } 0 \le x \le 1 \\
-        -x + 4 & \text{si } 1 < x \le 3.
-      \end{cases}
+    f(x) =
+    \begin{cases}
+      x + 3 & \text{si } -3 \le x < 0 \\
+      3 & \text{si } 0 \le x \le 1 \\
+      -x + 4 & \text{si } 1 < x \le 3.
+    \end{cases}
     \]
     Sa restriction à chacun de ces trois intervalles est affine, donc $f$ est
     affine par intervalles. De plus, les morceaux se rejoignent bout à bout :
@@ -1322,12 +1446,28 @@ est $x \mapsto x$. Voir sa définition dans la Sous-section~\ref{ss:valeur_absol
 \end{minipage}\hfill
 \begin{minipage}[c]{0.4\linewidth}
   \captionsetup{hypcap=false, skip=12pt}
-
+  
   \begin{minipage}[c][6cm][c]{\linewidth}
     \centering
-    \framebox[\linewidth]{\rule{0pt}{5cm}}
+    \begin{tikzpicture}[scale=0.85]
+      \draw[->] (-3.3,0) -- (3.3,0) node[right] {$x$};
+      \draw[->] (0,-0.7) -- (0,4.3) node[above] {$y$};
+      \foreach \x in {-3,-2,-1,1,2,3} {
+        \draw (\x,0.08) -- (\x,-0.08) node[below,font=\scriptsize] {$\x$};
+      }
+      \foreach \y in {1,2,3} {
+        \draw (0.08,\y) -- (-0.08,\y) node[left,font=\scriptsize] {$\y$};
+      }
+      \draw[thick,blue] (-3,0) -- (0,3);
+      \draw[thick,blue] (0,3) -- (1,3);
+      \draw[thick,blue] (1,3) -- (3,1);
+      \filldraw (-3,0) circle (1.5pt);
+      \filldraw (0,3) circle (1.5pt);
+      \filldraw (1,3) circle (1.5pt);
+      \filldraw (3,1) circle (1.5pt);
+    \end{tikzpicture}
   \end{minipage}
-
+  
   \captionof{figure}{Courbe de $f$.}
   \label{fig:affine_intervalles}
 \end{minipage}
@@ -1350,7 +1490,7 @@ croit : $E(x)$ est l'entier juste à gauche de $x$ sur la droite des réels (ou 
 lui-même, s'il est entier). Pour $x \ge 0$, c'est $x$ sans sa partie décimale, e.g.
 $E(12.933) = 12$. Attention aux nombres négatifs : $E(-1.5) = -2$ et non $-1$, car
 $-2$ est le plus grand entier inférieur ou égal à $-1.5$. On formalise cela avec la
-propriété suivante.
+propriété suivante. Ce résultat est admis.
 
 \begin{tcolorbox}[graybar]
   \begin{property}
@@ -1439,8 +1579,206 @@ définit l'addition et la multiplication pour les fonctions.
   polynômes, définis sur l'ensemble des $x$ où $q(x) \neq 0$.
 \end{remark}
 
-\newpage
 \section{Exercices}
+
+\begin{exercise}[\diff{3}]
+Pour deux réels $a$ et $b$, on note $\max(a, b)$ le plus grand des deux nombres
+et $\min(a, b)$ le plus petit.
+\begin{enumerate}[label=\alph*)]
+  \item Calculer $\dfrac{a + b + \lvert a - b \rvert}{2}$ pour $a = 3$ et $b = -5$.
+  Puis montrer que, pour tous réels $a$ et $b$,
+  \[
+    \max(a, b) = \frac{a + b + \lvert a - b \rvert}{2}.
+  \]
+  \item Montrer que $\max(a, b) + \min(a, b) = a + b$, et en déduire une formule
+  pour $\min(a, b)$ avec une valeur absolue.
+\end{enumerate}
+\label{ex:max_min}
+\end{exercise}
+
+\begin{exercise}[\diff{4}]
+Soit $a, b \ge 0$.
+\begin{enumerate}[label=\alph*)]
+  \item En utilisant l'identité remarquable $(x - y)^2 = x^2 + y^2 - 2xy$ avec
+  $x = \sqrt{a}$ et $y = \sqrt{b}$, montrer que
+  \[
+    \frac{a + b}{2} \ge \sqrt{ab}.
+  \]
+  \item À quelle condition sur $a$ et $b$ y a-t-il égalité ?
+  \item En déduire que, pour tout $x > 0$, on a $x + \dfrac{1}{x} \ge 2$, et préciser
+  le cas d'égalité.
+\end{enumerate}
+\label{ex:am_gm}
+\end{exercise}
+
+\begin{exercise}[\diff{5}]
+Soit $p(x) = a_0 + a_1 x + \dots + a_m x^m$ un polynôme de degré $m \ge 1$, et soit
+$\lambda$ un réel. On veut prouver le théorème : $p(\lambda) = 0$ si et seulement
+s'il existe un polynôme $q$ de degré $m - 1$ tel que $p(x) = (x - \lambda)q(x)$
+pour tout réel $x$.
+\begin{enumerate}[label=\alph*)]
+  \item On suppose que $p(x) = (x - \lambda)q(x)$ pour un certain polynôme $q$.
+  Montrer que $p(\lambda) = 0$.
+  \item Soit $k \ge 1$ un entier. Vérifier que
+  \[
+    x^k - \lambda^k = (x - \lambda)\left(x^{k-1} + x^{k-2}\lambda + \dots +
+    x\lambda^{k-2} + \lambda^{k-1}\right).
+  \]
+  Indice : commencer par $k = 2$ et $k = 3$. En développant, presque tous les termes
+  s'annulent deux à deux.
+  \item On suppose maintenant que $p(\lambda) = 0$. Montrer que
+  \[
+    p(x) = a_1(x - \lambda) + a_2(x^2 - \lambda^2) + \dots + a_m(x^m - \lambda^m).
+  \]
+  \item En déduire qu'il existe un polynôme $q$ tel que $p(x) = (x - \lambda)q(x)$.
+  \item Montrer que $q$ est de degré $m - 1$.
+\end{enumerate}
+\label{ex:root_fact}
+\end{exercise}
+
+\begin{exercise}[\diff{2}]
+Soit $f : x \mapsto \dfrac{1}{x}$ et $g : x \mapsto \dfrac{x}{x - 1}$.
+\begin{enumerate}[label=\alph*)]
+  \item Tracer la courbe $C_f$.
+  \item Donner l'ensemble de définition de $g$.
+  \item Trouver deux réels $a$ et $b$ tels que
+  $g(x) = f(x - a) + b$.
+  \item En déduire le tracé de $C_g$ à partir de $C_f$.
+\end{enumerate}
+\label{ex:translation}
+\end{exercise}
+
+\begin{exercise}[\diff{3}]
+\begin{enumerate}[label=\alph*)]
+  \item Montrer que $x \mapsto x^2$ est décroissante sur $\mathbb{R}_-$ et croissante
+  sur $\mathbb{R}_+$.
+  \item Montrer que $x \mapsto \dfrac{1}{x}$ est décroissante sur $]0, +\infty[$ et sur
+  $]-\infty, 0[$. Est-elle décroissante sur $\mathbb{R}^*$ ? Justifier avec 
+  un contre-exemple.
+  \item Montrer que $x \mapsto \sqrt{x}$ est croissante sur $\mathbb{R}_+$.
+\end{enumerate}
+\label{ex:variations_reference}
+\end{exercise}
+
+\begin{exercise}[\diff{2}]
+Déterminer l'ensemble de définition et étudier la parité de chacune des fonctions
+suivantes. Pour dire qu'une fonction n'est ni paire ni impaire, un contre-exemple
+suffit.
+\[
+  f : x \mapsto \frac{x}{1 + x^2} \quad ; \quad g : x \mapsto \sqrt{x} \quad ;
+  \quad h : x \mapsto \sqrt{\lvert x \rvert} \quad ; \quad k : x \mapsto x^2 - x + 1.
+\]
+\label{ex:def_parity}
+\end{exercise}
+
+\begin{exercise}[\diff{2}]
+Soit $f$ et $g$ deux fonctions définies sur un même ensemble $D$, et soit $a$ et $b$
+deux réels. On pourra d'abord deviner les réponses avec $x \mapsto x$ et
+$x \mapsto x^3$.
+\begin{enumerate}[label=\alph*)]
+  \item Que peut-on dire de $fg$ et de $af + bg$ lorsque $f$ et $g$ sont paires ?
+  \item Que peut-on dire de $fg$ et de $af + bg$ lorsque $f$ et $g$ sont impaires ?
+\end{enumerate}
+\label{ex:parity_operations}
+\end{exercise}
+
+\begin{exercise}[\diff{3}]
+Dans chaque cas, trouver un minorant (ou un majorant) de la fonction, puis vérifier
+qu'il est atteint. Déterminer, en justifiant brièvement :
+\begin{enumerate}[label=\alph*)]
+  \item le minimum sur $\mathbb{R}$ de $f : x \mapsto 1 + \lvert x \rvert + 2x^2$ ;
+  \item le minimum sur $\mathbb{R}$ de $g : x \mapsto \lvert x + 1 \rvert - 4$ ;
+  \item le maximum sur $\mathbb{R}$ de $h : x \mapsto \dfrac{1}{\lvert x \rvert + 3} + 1$ ;
+  \item le maximum sur $\mathbb{R}$ de $k : x \mapsto \dfrac{2}{1 + x^2} - 3$.
+\end{enumerate}
+\label{ex:extrema}
+\end{exercise}
+
+\begin{exercise}[\diff{1}]
+Soit \(f\) une fonction définie et positive sur un intervalle \(I\).
+\begin{enumerate}[label=\alph*)]
+  \item Démontrer que si \(f\) est croissante sur \(I\), alors \(\sqrt{f}\) est croissante sur \(I\).
+  \item Démontrer que si \(f\) est décroissante sur \(I\), alors \(\sqrt{f}\) est décroissante sur \(I\).
+  \item Démontrer que si \(f\) est majorée sur \(I\), alors \(\sqrt{f}\) est majorée sur \(I\).
+\end{enumerate}
+\label{ex:sqrt_theorem}
+\end{exercise}
+
+\begin{exercise}[\diff{1}]
+Soit $f$ la fonction définie sur $\mathbb{R}$ par $f(x) = 2x^2 - 4x$, et soit $g$ la
+fonction définie sur $\mathbb{R}$ par $g(x) = 2x^2 - 4\lvert x \rvert$.
+\begin{enumerate}[label=\alph*)]
+  \item Tracer $C_f$ dans un repère orthogonal $(O, \vec{i}, \vec{j})$. Indice :
+  $f(x) = 2x(x - 2)$.
+  \item Montrer que $g$ est paire.
+  \item Montrer que les restrictions de $f$ et de $g$ à $[0, +\infty[$ sont égales.
+  \item En déduire le tracé de $C_g$ à partir de $C_f$.
+\end{enumerate}
+\label{ex:trinomial_parity}
+\end{exercise}
+
+\begin{exercise}[\diff{4}]
+Dans cet exercice, $x$ est un réel et $n$ est un entier. On rappelle qu'un entier $m$
+qui vérifie $m \le y < m + 1$ est égal à $E(y)$.
+\begin{enumerate}[label=\alph*)]
+  \item Calculer $E(2.7)$, $E(-2.7)$, $E(5)$ et $E(-5)$. La fonction partie entière
+  est-elle paire ? impaire ?
+  \item Montrer que $E(x + n) = E(x) + n$.
+  \item On suppose que $x$ n'est pas un entier. Montrer que
+  $E(-x) = -E(x) - 1$.
+\end{enumerate}
+\label{ex:partie_entiere}
+\end{exercise}
+
+\begin{exercise}[\diff{3}]
+Soit $f$ le trinôme défini par $f(x) = x^2 - 6x + 6$, et soit $C$ sa courbe dans un
+repère orthonormé $(O, \vec{i}, \vec{j})$.
+\begin{enumerate}[label=\alph*)]
+  \item Trouver les réels $a$, $b$ et $c$ tels que, pour tout réel $x$,
+  $f(x) = a(x + b)^2 + c$. C'est la forme canonique de $f$.
+  \item Par quelle translation obtient-on $C$ à partir de la parabole d'équation
+  $y = x^2$ ? Tracer $C$.
+  \item Déterminer les variations de $f$.
+  \item Résoudre graphiquement, puis par le calcul, les inéquations $f(x) \le 0$ et
+  $f(x) \ge -4$. Indice : $\sqrt{u^2} = \lvert u \rvert$, et $\lvert u \rvert \le r$
+  équivaut à $-r \le u \le r$.
+\end{enumerate}
+\label{ex:canonical_form}
+\end{exercise}
+
+\begin{exercise}[\diff{4}]
+Soit $f$ la fonction définie sur $[-2, +\infty[$ par $f(x) = \sqrt{x + 2} - 3$, et
+soit $C_f$ sa courbe dans un repère orthonormé $(O, \vec{i}, \vec{j})$.
+\begin{enumerate}[label=\alph*)]
+  \item Par quelle translation obtient-on $C_f$ à partir de la courbe de
+  $x \mapsto \sqrt{x}$ ? Tracer $C_f$.
+  \item Montrer que $f$ est croissante sur $[-2, +\infty[$ (Exercice~\ref{ex:variations_reference}).
+  \item Soit $h$ la fonction définie sur $[-2, +\infty[$ par
+  $h(x) = -\sqrt{x + 2} + 3$. Montrer que $h = -f$. Que peut-on dire de $C_f$ et de
+  $C_h$ ? Et des variations de $h$ ? Tracer $C_h$ dans le même repère.
+  \item On garde seulement les points de $C_f \cup C_h$ dont l'ordonnée est positive
+  ou nulle. On obtient la courbe d'une fonction $k$. Exprimer $k(x)$ à l'aide de
+  $f(x)$.
+\end{enumerate}
+\label{ex:sqrt_transformations}
+\end{exercise}
+
+\begin{exercise}[\diff{4}]
+Soit $f$ la fonction définie sur $\mathbb{R} \setminus \{-3\}$ par
+$f(x) = \dfrac{x - 1}{x + 3}$, et soit $C$ sa courbe dans un repère orthonormé
+$(O, \vec{i}, \vec{j})$.
+\begin{enumerate}[label=\alph*)]
+  \item Trouver les réels $a$, $b$ et $c$ tels que, pour tout réel $x \neq -3$,
+  $f(x) = \dfrac{a}{x + b} + c$. Indice : $x - 1 = (x + 3) - 4$.
+  \item Déterminer les variations de $f$ sur $]-\infty, -3[$ et sur $]-3, +\infty[$.
+  Indice : si $a < b$ dans $]-3, +\infty[$, alors $0 < a + 3 < b + 3$.
+  \item Tracer $C$.
+  \item Dans le même repère, tracer la parabole d'équation $y = x^2 - 4$. En déduire
+  graphiquement le nombre de solutions dans $\mathbb{R}$ de l'équation
+  $\dfrac{x - 1}{x + 3} = x^2 - 4$.
+\end{enumerate}
+\label{ex:rational_function}
+\end{exercise}
 
 \newpage
 \phantomsection
